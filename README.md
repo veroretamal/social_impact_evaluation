@@ -1,6 +1,7 @@
 🌍 Social Impact Evaluation of Projects in Chile 📊
 
   📌 Overview: This project aims to evaluate the social impact of various projects in Chile, focusing on three key levels:
+  
   📊 Social Baseline: Characteristics of the affected population.
   📈 Impact Variables: Direct effects of the projects on communities.  
   🛡️ Risk Mitigation Variables: Measures to reduce negative impacts.
