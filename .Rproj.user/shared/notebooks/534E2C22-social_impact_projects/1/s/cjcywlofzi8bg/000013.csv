@@ -1,0 +1,9 @@
+"0","## Gráfico de violín de Opinión del Proyecto en relación a la organización comunitaria."
+"0","ggplot(df, aes(x = Organización_comunitaria, y = Opinion_proyecto_num, fill = Organización_comunitaria)) +"
+"0","  geom_violin(alpha = 0.7) +"
+"0","  theme_minimal() +"
+"0","  labs(title = ""Distribución de la Opinión del Proyecto por Nivel de Organización Comunitaria"", "
+"0","       x = ""Organización Comunitaria"", y = ""Opinión del Proyecto (Numérica)"", fill = ""Organización Comunitaria"")"
+"2","Warning:"
+"2"," [38;5;232mRemoved 20 rows containing non-finite outside the scale range (`stat_ydensity()`).[39m
+"

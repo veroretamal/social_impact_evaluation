@@ -1,0 +1,553 @@
+---
+title: "Social_impact_evaluation"
+author: "VCRA"
+date: "2025-03-05"
+output:
+  html_document:
+    df_print: paged
+  pdf_document:
+    latex_engine: pdflatex
+---
+
+
+# **Informe: Evaluación de Impacto Social Proyectos** 
+
+##### **Introducción**: Este análisis tiene como objetivo evaluar el impacto social de varios proyectos en Chile, centrándose en tres niveles clave:
+
+##### - **Línea Base Social**: Características de la población afectada.
+
+##### - **Variables de Impacto**: Efectos directos de los proyectos en las comunidades.
+
+##### - **Variables de Mitigación de Riesgos**: Medidas para reducir impactos negativos.
+
+##### **Propósito**: Comprender cómo estas variables influyen en la percepción y el éxito de los proyectos, proporcionando insights valiosos para futuras iniciativas.
+
+
+### Instalación de paquetes y liberías
+```{r}
+# Verificar e instalar paquetes si no están instalados
+if (!require("tidyverse")) install.packages("tidyverse")
+if (!require("ggplot2")) install.packages("ggplot2")
+if (!require("corrplot")) install.packages("corrplot")
+if (!require("dplyr")) install.packages("dplyr")
+if (!require("psych")) install.packages("psych")
+if (!require("readxl")) install.packages("readxl")
+if (!require("RColorBrewer")) install.packages("RColorBrewer")
+if (!require("scales")) install.packages("scales")
+if (!require("car")) install.packages("car")
+# Cargar librerías
+
+library(tidyverse)
+library(ggplot2)
+library(corrplot)
+library(dplyr)
+library(psych)
+library(readxl)
+library(RColorBrewer)
+library(scales)
+library (car)
+```
+
+### Carga de Base de datos
+```{r}
+# Cargar archivo XLS
+df <- read_excel("EIS/eis.xlsx")
+
+# Ver las primeras lineas del dataset
+head(df)
+
+# Revisión detallada del dataset
+glimpse(df)
+
+```
+
+
+
+### Revisión data frame
+```{r}
+## Verificar valores nulos
+colSums(is.na(df))
+
+## Eliminación de valores nulos si es necesario
+df <- df %>% drop_na()  # Eliminar filas con valores NA 
+```
+
+## **Análisis Linea Base Social**
+
+##### *Se presenta un análisis de las variables de Linea Base Social, particularmente las variables relacionadas con la región donde se ubica el Proyecto en relación a la Opinión del Proyecto.*
+
+### **Resumen estadístico**
+```{r}
+descriptivos <- df %>%
+  select(Población_total_region, Pob_indígena, Porcentaje_rural, Tasa_desempleo) %>%
+  psych::describe()
+  
+print(descriptivos) 
+```
+
+### **Resumen general Opinión Proyectos por Región**
+```{r}
+ggplot(df, aes(x = fct_infreq(Opinion_proyecto), fill = Nombre_proyecto)) +  # Agrupar las opiniones
+  geom_bar(position = "dodge") +  # Mejor visualización con barras separadas
+  theme_minimal() +
+  labs(title = "Opinión sobre Proyectos por Proyecto", x = "Opinión del Proyecto", y = "Cantidad") +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+```
+
+### **Prueba de Hipotesis:Análisis de Correlación entre Variables de Línea Base y Opinión del Proyecto**
+
+#### Hipótesis:
+##### H0 : No existe una relación significativa entre las variables de línea base social y la opinión del proyecto.
+##### H1: Existe una relación significativa entre al menos una de las variables de línea base social y la opinión del proyecto.
+
+```{r}
+df$Opinion_proyecto_num <- ifelse(df$Opinion_proyecto == "Positiva", 1, 
+                                  ifelse(df$Opinion_proyecto == "Neutra", 0, -1))
+
+# Calcular la matriz de correlación
+
+correlaciones <- cor(df[, c("Población_total_region", "Pob_indígena", "Porcentaje_rural", 
+                            "Tasa_desempleo", "Confianza_instituciones", "Num_actores_clave", 
+                            "Participación_ciudadana", "Conocimiento_proyecto", 
+                            "Confianza_responsables", "Opinion_proyecto_num")])
+
+## Visualizar la matriz de correlación
+
+corrplot(correlaciones, method = "circle", type = "upper", tl.col = "black", tl.srt = 45, 
+         addCoef.col = "white", number.cex = 0.7)  # Agregar coeficientes de correlación
+```
+
+
+##### *Se rechaza la Hipótesis Nula: Existe una correlacion entre la Opinión del Proyecto y las variables Tasa de Desempleo.*
+
+### **Test Correlación de Pearson:**
+```{r}
+# Test de correlación de Pearson entre Tasa_desempleo y Opinion_proyecto_num
+test_cor_desempleo_opinion <- cor.test(df$Tasa_desempleo, df$Opinion_proyecto_num)
+
+# Imprimir los resultados
+print(test_cor_desempleo_opinion)
+
+```
+##### *Existe una fuerte correlación entre la Tasa de Desempleo y la Opinión del Proyecto, es decir, a mayor desempleo en la Región se puede dar una mayor tendencia a tener una opinión positiva del proyecto*
+
+
+### **Análisis de Tasa de desempleo y Opinión del Proyecto**
+```{r}
+# Convertir las opiniones a valores numéricos
+df$Opinion_proyecto_num <- ifelse(df$Opinion_proyecto == "Negativa", 1,
+                                  ifelse(df$Opinion_proyecto == "Neutral", 2,
+                                         ifelse(df$Opinion_proyecto == "Positiva", 3, NA)))
+
+# Cargar ggplot2
+library(ggplot2)
+
+# Crear el gráfico con ggplot2
+p <- ggplot(df, aes(x = Tasa_desempleo, y = Opinion_proyecto_num, color = Región)) +
+  geom_point(size = 3, alpha = 0.7) +
+  geom_smooth(method = "lm", se = FALSE, color = "black") +
+  theme_minimal() +
+  labs(title = "Relación entre Tasa de Desempleo y Opinión del Proyecto",
+       x = "Tasa de Desempleo", y = "Opinión del Proyecto (Numérica)",
+       color = "Región")
+
+# Mostrar el gráfico
+print(p)
+
+
+
+
+```
+
+### **Análisis de la relación entre Población indígena, Tasa de Desempleo y Opinión del Proyecto**
+```{r}
+## Gráfico de dispersión entre Pob_indígena y Opinión del Proyecto
+ggplot(df, aes(x = Pob_indígena, y = Opinion_proyecto_num, color = Tasa_desempleo)) +
+  geom_point(size = 3, alpha = 0.7) +
+  geom_smooth(method = "lm", se = FALSE, color = "black") +
+  theme_minimal() +
+  labs(title = "Relación entre Población Indígena y Opinión del Proyecto", x = "Población Indígena", 
+       y = "Opinión del Proyecto (Numérica)", color = "Tasa de Desempleo")
+
+```
+
+### **Confianza en responsables del proyecto**
+```{r}
+
+ggplot(df, aes(x = Opinion_proyecto, y = Confianza_instituciones)) +
+  geom_boxplot(fill = "lightblue", color = "black") +
+  theme_minimal() +
+  labs(title = "Confianza en Instituciones según Opinión del Proyecto", 
+       x = "Opinión sobre el Proyecto", y = "Confianza en Instituciones")
+``` 
+
+### **Organización comunitaria**
+```{r}
+## Gráfico de violín de Opinión del Proyecto en relación a la organización comunitaria.
+ggplot(df, aes(x = Organización_comunitaria, y = Opinion_proyecto_num, fill = Organización_comunitaria)) +
+  geom_violin(alpha = 0.7) +
+  theme_minimal() +
+  labs(title = "Distribución de la Opinión del Proyecto por Nivel de Organización Comunitaria", 
+       x = "Organización Comunitaria", y = "Opinión del Proyecto (Numérica)", fill = "Organización Comunitaria")
+```
+
+
+### **Conocimiento del proyecto**
+```{r}
+## Relación entre Conocimiento del Proyecto y el Proyecto
+ggplot(df, aes(x = Nombre_proyecto, y = Conocimiento_proyecto, fill = Nombre_proyecto)) +
+  geom_violin(alpha = 0.6) +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
+  labs(title = "Conocimiento del Proyecto", x = "Proyecto", y = "Conocimiento del Proyecto")
+```
+
+
+### **Prueba de Hipótesis:** Regresión Lineal para predecir la Opinión del Proyecto
+
+#### Hipótesis: 
+##### H0 : Ninguna de las variables independientes tiene un efecto significativo sobre la opinión del proyecto.
+##### H1:  Al menos una de las variables independientes tiene un efecto significativo sobre la opinión del proyecto.
+
+### **Regresión Lineal**
+```{r}
+modelo <- lm(Opinion_proyecto_num ~ Población_total_region + Pob_indígena + Porcentaje_rural + 
+               Tasa_desempleo + Confianza_instituciones + Num_actores_clave + 
+               Participación_ciudadana + Conocimiento_proyecto + Confianza_responsables, 
+             data = df)
+summary(modelo)
+```
+
+##### *Las variables más importantes para predecir la opinión sobre el proyecto son la población total de la región, la tasa de desempleo y la confianza en las instituciones. Otras variables como la población indígena, el porcentaje rural, el número de actores clave, la participación ciudadana, el conocimiento del proyecto y la confianza en los responsables no tienen un impacto significativo en la opinión sobre el proyecto en este modelo.*
+
+
+## **Análisis de Variables de Impacto**
+
+
+### **Riesgo de desplazamiento**
+```{r}
+## Gráfico de barras para Riesgo_desplazamiento por proyecto
+ggplot(df, aes(x = Nombre_proyecto, fill = Riesgo_desplazamiento)) +
+  geom_bar(position = "dodge") +
+  theme_minimal() +
+  labs(title = "Distribución del Riesgo de Desplazamiento por Proyecto",
+       x = "Proyecto", y = "Frecuencia", fill = "Riesgo de Desplazamiento") +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1), 
+        plot.title = element_text(hjust = 0.5, size = 14, face = "bold"),
+        axis.title = element_text(size = 12),
+        axis.text = element_text(size = 10)) +
+  scale_fill_brewer(palette = "Set1")
+```
+
+### **Cohesión social**
+
+```{r}
+## Gráfico de barras para Impacto_cohesión_social por proyecto
+ggplot(df, aes(x = Nombre_proyecto, fill = Impacto_cohesión_social)) +
+  geom_bar(position = "dodge") +
+  theme_minimal() +
+  labs(title = "Distribución del Impacto en la Cohesión Social por Proyecto",
+       x = "Proyecto", y = "Frecuencia", fill = "Impacto en la Cohesión Social") +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1), 
+        plot.title = element_text(hjust = 0.5, size = 14, face = "bold"),
+        axis.title = element_text(size = 12),
+        axis.text = element_text(size = 10)) +
+  scale_fill_brewer(palette = "Set2")
+```
+
+
+### **Percepción ambiental**
+
+```{r}
+# Gráfico de caja para Percepción_ambiental por proyecto
+ggplot(df, aes(x = Nombre_proyecto, y = Percepción_ambiental, fill = Nombre_proyecto)) +
+  geom_boxplot(alpha = 0.7) +
+  theme_minimal() +
+  labs(title = "Distribución de la Percepción Ambiental por Proyecto",
+       x = "Proyecto", y = "Percepción Ambiental", fill = "Proyecto") +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1), 
+        plot.title = element_text(hjust = 0.5, size = 14, face = "bold"),
+        axis.title = element_text(size = 12),
+        axis.text = element_text(size = 10)) +
+  scale_fill_brewer(palette = "Pastel1")
+```
+
+
+### **Conflictos potenciales** 
+
+```{r}
+## Gráfico de barras para Conflictos_potenciales por proyecto
+ggplot(df, aes(x = Nombre_proyecto, fill = Conflictos_potenciales)) +
+  geom_bar(position = "fill") +
+  theme_minimal() +
+  labs(title = "Proporción de Conflictos Potenciales por Proyecto",
+       x = "Proyecto", y = "Proporción", fill = "Conflictos Potenciales") +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1), 
+        plot.title = element_text(hjust = 0.5, size = 14, face = "bold"),
+        axis.title = element_text(size = 12),
+        axis.text = element_text(size = 10)) +
+  scale_y_continuous(labels = scales::percent_format()) +
+  scale_fill_brewer(palette = "Set2")
+```
+
+### **Prueba de Hipótesis:** Correlación entre Variables de Impacto y Opinión del Proyecto
+
+#### Hipótesis:
+##### H0: No existe una correlación significativa entre las variables de impacto (Riesgo de desplazamiento, Impacto en la cohesión social, Cambio en el empleo local, Percepción ambiental, Impacto en la seguridad y servicios, Conflictos potenciales) y la opinión del proyecto.
+##### H1: Existe una correlación significativa entre al menos una de las variables de impacto y la opinión del proyecto.
+
+```{r}
+## Correlación
+# Convertir variables categóricas a numéricas para el análisis de correlación
+df_cor <- df %>%
+  mutate(
+    Riesgo_desplazamiento_num = case_when(
+      Riesgo_desplazamiento == "Alto" ~ 3,
+      Riesgo_desplazamiento == "Medio" ~ 2,
+      Riesgo_desplazamiento == "Bajo" ~ 1
+    ),
+    Impacto_cohesión_social_num = case_when(
+      Impacto_cohesión_social == "Positivo" ~ 1,
+      Impacto_cohesión_social == "Neutro" ~ 0,
+      Impacto_cohesión_social == "Negativo" ~ -1
+    ),
+    Cambio_empleo_local_num = case_when(
+      Cambio_empleo_local == "Aumento" ~ 1,
+      Cambio_empleo_local == "Sin cambio" ~ 0,
+      Cambio_empleo_local == "Disminución" ~ -1
+    ),
+    Impacto_seguridad_servicios_num = case_when(
+      Impacto_seguridad_servicios == "Positivo" ~ 1,
+      Impacto_seguridad_servicios == "Neutro" ~ 0,
+      Impacto_seguridad_servicios == "Negativo" ~ -1
+    ),
+    Conflictos_potenciales_num = ifelse(Conflictos_potenciales == "Sí", 1, 0)
+  )
+
+# Calcular la matriz de correlación
+correlaciones <- cor(df_cor[, c("Riesgo_desplazamiento_num", "Impacto_cohesión_social_num", 
+                                "Cambio_empleo_local_num", "Percepción_ambiental", 
+                                "Impacto_seguridad_servicios_num", "Conflictos_potenciales_num")])
+
+# Visualizar la matriz de correlación
+corrplot(correlaciones, method = "circle", type = "upper", tl.col = "black", tl.srt = 45,
+         title = "Matriz de Correlación de Variables de Impacto", mar = c(0,0,1,0))
+```
+
+```{r}
+
+```
+
+##### *La Prueba La correlación más fuerte es entre Riesgo_desplazamiento_num y Conflictos_potenciales_num (0.631), lo que indica una relación importante entre estas dos variables, la percepción ambiental también parece estar relacionada con los conflictos potenciales, aunque de manera negativa (-0.259). Las demás correlaciones son débiles o no significativas, lo que sugiere que no hay una relación lineal fuerte entre esas variables.*
+
+### **Prueba de Significancia** 
+
+##### Para evaluar la significancia estadística de las correlaciones, se realizó una prueba de hipótesis para cada coeficiente de correlación utilizando la función cor.test().
+```{r}
+# Prueba de significancia para cada correlación
+# Crear los resultados de la correlación
+resultados_cor_impacto <- list()
+
+variables_impacto <- c("Riesgo_desplazamiento_num", "Conflictos_potenciales_num")
+
+for (var in variables_impacto) {
+  test <- cor.test(df_cor[[var]], df_cor$Opinion_proyecto_num)
+  resultados_cor_impacto[[var]] <- data.frame(
+    Variable = var,
+    Correlación = test$estimate,
+    P_valor = test$p.value
+  )
+}
+
+# Combinar los resultados en un solo dataframe
+resultados_cor_impacto_df <- do.call(rbind, resultados_cor_impacto)
+
+# Agregar la columna de significancia
+resultados_cor_impacto_df <- resultados_cor_impacto_df %>%
+  mutate(Significancia = ifelse(P_valor < 0.05, "Significativa", "No significativa"))
+
+# Imprimir los resultados
+print(resultados_cor_impacto_df)
+
+```
+
+
+##### *Esta prueba indica que ambas correlaciones son negativas y significativas, lo que sugiere que los factores de riesgo de desplazamiento y conflictos potenciales influyen negativamente en la opinión sobre el proyecto.  Dado que los p-valores, podemos rechazar la hipótesis nula (H₀) de que no existe correlación y afirmar que estos factores tienen una relación significativa con la opinión sobre el proyecto.*
+##### *La correlación más fuerte es la de conflictos potenciales (-0.8980), lo que indica que este factor podría tener un impacto aún mayor en la percepción del proyecto.*
+
+### **Análisis Variable Impacto calidad de vida**
+```{r}
+## Análisis variable Impacto calidad de vida por proyecto
+tabla_calidad_vida <- table(df$Nombre_proyecto, df$Impacto_calidad_vida)
+
+
+prop.table(tabla_calidad_vida, margin = 1) * 100
+```
+
+### **Visualización Impacto en calidad de vida por proyecto**
+```{r}
+ggplot(df, aes(x = Nombre_proyecto, fill = Impacto_calidad_vida)) +
+  geom_bar(position = "fill") +
+  scale_y_continuous(labels = scales::percent_format()) +
+  theme_minimal() +
+  labs(title = "Proporción de Impacto en Calidad de Vida por Proyecto", 
+       x = "Proyecto", y = "Proporción", fill = "Impacto en Calidad de Vida") +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1), 
+        plot.title = element_text(hjust = 0.5, size = 14, face = "bold"),
+        axis.title = element_text(size = 12),
+        axis.text = element_text(size = 10)) +
+  scale_fill_brewer(palette = "Set3")
+```
+
+## **Análisis de Variables de Mitigación de riesgos**
+
+### **Cumplimiento de compromisos**
+```{r}
+## Gráfico de barras para la percepción del cumplimiento de compromisos por proyecto
+ggplot(df, aes(x = Nombre_proyecto, fill = Cumplimiento_compromisos)) +
+  geom_bar(position = "dodge") +
+  theme_minimal() +
+  labs(title = "Percepción del Cumplimiento de Compromisos por Proyecto",
+       x = "Proyecto",
+       y = "Cantidad de Respuestas") +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
+  scale_fill_brewer(palette = "Set2") +
+  geom_text(stat = 'count', aes(label = ..count..), position = position_dodge(0.8), vjust = -0.5)
+```
+
+
+### **Prueba de Hipotesis:** Relación entre Proyecto y Cumplimiento de compromisos.
+
+#### Hipótesis:
+##### H0: No hay relación entre el cumplimiento de compromisos y el nombre del proyecto.
+##### H1: Existe una relación entre el cumplimiento de compromisos y el nombre del proyecto.
+
+### **Prueba de Chi-cuadrado** 
+```{r}
+tabla_proyecto_cumplimiento <- table(df$Nombre_proyecto, df$Cumplimiento_compromisos)
+chi_result <- chisq.test(tabla_proyecto_cumplimiento)
+
+# Mostrar el resultado de la prueba de chi-cuadrado
+print(chi_result)
+```
+##### *Dado el bajo p-valor (<0.05), hay una relación significativa entre el nombre del proyecto y el cumplimiento de compromisos. Es recomendable verificar los valores esperados y, si es necesario, usar la prueba exacta de Fisher para mayor precisión.*
+
+### **Prueba de Monte Carlo**: Para corregir advertencia del test Chi-cuadrado
+```{r}
+fisher_result <- fisher.test(tabla_proyecto_cumplimiento, simulate.p.value = TRUE, B = 10000)  # 10,000 simulaciones
+print(fisher_result)
+```
+##### *Como el p-valor (0.002) < 0.05, rechazamos la hipótesis nula (H₀) y concluimos que hay una relación estadísticamente significativa entre el nombre del proyecto y el cumplimiento de compromisos. Es decir, el grado de cumplimiento de compromisos varía según el proyecto.*
+
+### **Satisfacción con la Mitigación**
+```{r}
+ggplot(df, aes(x = Nombre_proyecto, y = Satisfacción_mitigación, fill = Nombre_proyecto)) +
+  geom_boxplot(alpha = 0.7, outlier.colour = "red", outlier.shape = 16, outlier.size = 3) + 
+  theme_minimal() +
+  labs(title = "Distribución de la Satisfacción con las Acciones de Mitigación por Proyecto",
+       x = "Proyecto",
+       y = "Satisfacción con la Mitigación") +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1)) + 
+  scale_fill_brewer(palette = "Set3")
+```
+
+### **Prueba de Hipótesis:**ANOVA para comparar satisfacción con mitigación de Proyectos
+
+#### Hipótesis:
+##### H0: La satisfacción con la mitigación no varía significativamente entre los proyectos.
+##### H1: La satisfacción con la mitigación varía significativamente entre los proyectos.
+
+
+### **Prueba ANOVA**
+```{r}
+anova_satisfaccion <- aov(Satisfacción_mitigación ~ Nombre_proyecto, data = df)
+summary(anova_satisfaccion)
+```
+##### *No hay diferencias estadísticamente significativas en la satisfacción con la mitigación entre los proyectos. La variación observada en la satisfacción parece deberse al azar y no a diferencias reales entre los proyectos.*
+
+
+### **Verificar los supuestos del ANOVA:** de homogeneidad de varianzas 
+
+#### Hipótesis:
+##### H0: Las varianzas son homogéneas entre los grupos.
+##### H1: Las varianzas no son homogéneas entre los grupos.
+
+### **Prueba de Levene**
+```{r}
+#Prueba de Levene
+leveneTest(Satisfacción_mitigación ~ Nombre_proyecto, data = df)
+```
+##### *No hay evidencia suficiente para afirmar que las varianzas sean diferentes entre los grupos. Por lo tanto, se cumple el supuesto de homogeneidad de varianzas.*
+
+### **Prueba de normalidad:** 
+
+##### Hipótesis:
+##### H0: Los residuos siguen una distribución normal.
+##### H0: Los residuos no siguen una distribución normal.
+
+### **Test de Shapiro-Wilk**
+```{r}
+shapiro.test(residuals(anova_satisfaccion))
+```
+
+##### *Se rechaza Hipótesis Nula: No hay evidencia suficiente para concluir que los residuos no siguen una distribución normal*
+
+
+### **Prueba no paramétrica Kruskal-Wallis**
+```{r}
+kruskal.test(Satisfacción_mitigación ~ Nombre_proyecto, data = df)
+```
+##### *Tanto el ANOVA como la prueba de Kruskal-Wallis indican que no hay diferencias significativas en la satisfacción con la mitigación entre los proyectos.Esto sugiere que, en promedio, los proyectos tienen niveles de satisfacción similares en cuanto a la mitigación, y no sería necesario realizar intervenciones específicas para cada proyecto en este aspecto.*
+
+
+
+### **Prueba de Hipótesis:** ANOVA para comparar satisfacción con la mitigación según el cumplimiento de compromisos.
+
+#### Hipótesis:
+##### H0: La satisfacción con la mitigación no varía significativamente según el cumplimiento de compromisos.
+##### H1: La satisfacción con la mitigación varía significativamente según el cumplimiento de compromisos.
+
+```{r}
+anova_mitigacion <- aov(Satisfacción_mitigación ~ Cumplimiento_compromisos, data = df)
+summary(anova_mitigacion)
+```
+##### *Se acepta la Hipótesis Nula: El cumplimiento de compromisos no es un factor determinante en la satisfacción con la mitigación.*
+
+### **Prueba de Levene:** Análisis homogeneidad de varianzas
+```{r}
+# Prueba de Levene
+leveneTest(Satisfacción_mitigación ~ Cumplimiento_compromisos, data = df)
+```
+##### *Se cumple el supuesto de homogeneidad de varianzas*
+
+### **Análisis de densidad de valores dentro de cada categoría de cumplimiento**
+```{r}
+#Gráfico de violín
+ggplot(df, aes(x = Cumplimiento_compromisos, y = Satisfacción_mitigación, fill = Cumplimiento_compromisos)) +
+  geom_violin(alpha = 0.6) +
+  geom_jitter(color = "black", width = 0.2, alpha = 0.5) +
+  theme_minimal() +
+  labs(title = "Distribución de la Satisfacción con la Mitigación según Cumplimiento de Compromisos",
+       x = "Cumplimiento de Compromisos",
+       y = "Satisfacción con la Mitigación") +
+  scale_fill_brewer(palette = "Pastel1")
+```
+
+```{r}
+
+```
+
+
+##### *Existe una alta variabilidad en la satisfacción, particularmente en quienes manifiestan un bajo cumplimiento de compromisos*
+
+# **Conclusiones:**
+
+##### - *La tasa de desempleo y la confianza en las instituciones influyen significativamente en la percepción de los proyectos. El riesgo de desplazamiento y los conflictos potenciales tienen un impacto negativo en la opinión de las comunidades.*
+
+##### - *Existen diferencias en el cumplimiento de compromisos entre proyectos, pero esto no determina la satisfacción con las estrategias de mitigación.*
+
+##### - *La efectividad de las acciones de mitigación es percibida de manera similar en distintos proyectos, lo que indica la necesidad de estrategias más adaptadas a cada contexto.*
+
+##### - *Se recomienda fortalecer la participación ciudadana, mejorar la comunicación sobre los compromisos asumidos y adaptar las estrategias de mitigación a las necesidades específicas de cada comunidad.*
+
+##### - *Implementar estas recomendaciones contribuirá a reducir la incertidumbre y aumentar la aceptación de los proyectos, garantizando un mayor impacto positivo en la población.*

@@ -1,0 +1,15 @@
+"0","## Gráfico de dispersión entre Pob_indígena y Opinión del Proyecto"
+"0","ggplot(df, aes(x = Pob_indígena, y = Opinion_proyecto_num, color = Tasa_desempleo)) +"
+"0","  geom_point(size = 3, alpha = 0.7) +"
+"0","  geom_smooth(method = ""lm"", se = FALSE, color = ""black"") +"
+"0","  theme_minimal() +"
+"0","  labs(title = ""Relación entre Población Indígena y Opinión del Proyecto"", x = ""Población Indígena"", "
+"0","       y = ""Opinión del Proyecto (Numérica)"", color = ""Tasa de Desempleo"")"
+"1","[38;5;232m`geom_smooth()` using formula = 'y ~ x'[39m
+"
+"2","Warning:"
+"2"," [38;5;232mRemoved 20 rows containing non-finite outside the scale range (`stat_smooth()`).[39m
+"
+"2","Warning:"
+"2"," [38;5;232mRemoved 20 rows containing missing values or values outside the scale range (`geom_point()`).[39m
+"

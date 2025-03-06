@@ -1,0 +1,5 @@
+"0","descriptivos <- df %>%"
+"0","  select(Población_total_region, Pob_indígena, Porcentaje_rural, Tasa_desempleo) %>%"
+"0","  psych::describe()"
+"0","  "
+"0","print(descriptivos) "

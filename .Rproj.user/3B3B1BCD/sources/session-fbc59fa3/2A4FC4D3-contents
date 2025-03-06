@@ -1,0 +1,1393 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+]{article}
+\usepackage{amsmath,amssymb}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math} % this also loads fontspec
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+\usepackage{lmodern}
+\ifPDFTeX\else
+  % xetex/luatex font selection
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\usepackage[margin=1in]{geometry}
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\usepackage{graphicx}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+% Set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+\ifLuaTeX
+  \usepackage{selnolig}  % disable illegal ligatures
+\fi
+\usepackage{bookmark}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same}
+\hypersetup{
+  pdftitle={Social\_impact\_evaluation},
+  pdfauthor={VCRA},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+
+\title{Social\_impact\_evaluation}
+\author{VCRA}
+\date{2025-03-05}
+
+\begin{document}
+\maketitle
+
+\section{\texorpdfstring{\textbf{Informe: Evaluación de Impacto Social
+Proyectos}}{Informe: Evaluación de Impacto Social Proyectos}}\label{informe-evaluaciuxf3n-de-impacto-social-proyectos}
+
+\subparagraph{\texorpdfstring{\textbf{Introducción}: Este análisis tiene
+como objetivo evaluar el impacto social de varios proyectos en Chile,
+centrándose en tres niveles
+clave:}{Introducción: Este análisis tiene como objetivo evaluar el impacto social de varios proyectos en Chile, centrándose en tres niveles clave:}}\label{introducciuxf3n-este-anuxe1lisis-tiene-como-objetivo-evaluar-el-impacto-social-de-varios-proyectos-en-chile-centruxe1ndose-en-tres-niveles-clave}
+
+\subparagraph{\texorpdfstring{- \textbf{Línea Base Social}:
+Características de la población
+afectada.}{- Línea Base Social: Características de la población afectada.}}\label{luxednea-base-social-caracteruxedsticas-de-la-poblaciuxf3n-afectada.}
+
+\subparagraph{\texorpdfstring{- \textbf{Variables de Impacto}: Efectos
+directos de los proyectos en las
+comunidades.}{- Variables de Impacto: Efectos directos de los proyectos en las comunidades.}}\label{variables-de-impacto-efectos-directos-de-los-proyectos-en-las-comunidades.}
+
+\subparagraph{\texorpdfstring{- \textbf{Variables de Mitigación de
+Riesgos}: Medidas para reducir impactos
+negativos.}{- Variables de Mitigación de Riesgos: Medidas para reducir impactos negativos.}}\label{variables-de-mitigaciuxf3n-de-riesgos-medidas-para-reducir-impactos-negativos.}
+
+\subparagraph{\texorpdfstring{\textbf{Propósito}: Comprender cómo estas
+variables influyen en la percepción y el éxito de los proyectos,
+proporcionando insights valiosos para futuras
+iniciativas.}{Propósito: Comprender cómo estas variables influyen en la percepción y el éxito de los proyectos, proporcionando insights valiosos para futuras iniciativas.}}\label{propuxf3sito-comprender-cuxf3mo-estas-variables-influyen-en-la-percepciuxf3n-y-el-uxe9xito-de-los-proyectos-proporcionando-insights-valiosos-para-futuras-iniciativas.}
+
+\subsubsection{Instalación de paquetes y
+liberías}\label{instalaciuxf3n-de-paquetes-y-liberuxedas}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Verificar e instalar paquetes si no están instalados}
+\ControlFlowTok{if}\NormalTok{ (}\SpecialCharTok{!}\FunctionTok{require}\NormalTok{(}\StringTok{"tidyverse"}\NormalTok{)) }\FunctionTok{install.packages}\NormalTok{(}\StringTok{"tidyverse"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Loading required package: tidyverse
+\end{verbatim}
+
+\begin{verbatim}
+## -- Attaching core tidyverse packages ------------------------ tidyverse 2.0.0 --
+## v dplyr     1.1.4     v readr     2.1.5
+## v forcats   1.0.0     v stringr   1.5.1
+## v ggplot2   3.5.1     v tibble    3.2.1
+## v lubridate 1.9.4     v tidyr     1.3.1
+## v purrr     1.0.4     
+## -- Conflicts ------------------------------------------ tidyverse_conflicts() --
+## x dplyr::filter() masks stats::filter()
+## x dplyr::lag()    masks stats::lag()
+## i Use the conflicted package (<http://conflicted.r-lib.org/>) to force all conflicts to become errors
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ControlFlowTok{if}\NormalTok{ (}\SpecialCharTok{!}\FunctionTok{require}\NormalTok{(}\StringTok{"lubridate"}\NormalTok{)) }\FunctionTok{install.packages}\NormalTok{(}\StringTok{"lubridate"}\NormalTok{)}
+\ControlFlowTok{if}\NormalTok{ (}\SpecialCharTok{!}\FunctionTok{require}\NormalTok{(}\StringTok{"ggplot2"}\NormalTok{)) }\FunctionTok{install.packages}\NormalTok{(}\StringTok{"ggplot2"}\NormalTok{)}
+\ControlFlowTok{if}\NormalTok{ (}\SpecialCharTok{!}\FunctionTok{require}\NormalTok{(}\StringTok{"corrplot"}\NormalTok{)) }\FunctionTok{install.packages}\NormalTok{(}\StringTok{"corrplot"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Loading required package: corrplot
+## corrplot 0.95 loaded
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ControlFlowTok{if}\NormalTok{ (}\SpecialCharTok{!}\FunctionTok{require}\NormalTok{(}\StringTok{"dplyr"}\NormalTok{)) }\FunctionTok{install.packages}\NormalTok{(}\StringTok{"dplyr"}\NormalTok{)}
+\ControlFlowTok{if}\NormalTok{ (}\SpecialCharTok{!}\FunctionTok{require}\NormalTok{(}\StringTok{"summarytools"}\NormalTok{)) }\FunctionTok{install.packages}\NormalTok{(}\StringTok{"summarytools"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Loading required package: summarytools
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in fun(libname, pkgname): couldn't connect to display ":0"
+\end{verbatim}
+
+\begin{verbatim}
+## system might not have X11 capabilities; in case of errors when using dfSummary(), set st_options(use.x11 = FALSE)
+## 
+## Attaching package: 'summarytools'
+## 
+## The following object is masked from 'package:tibble':
+## 
+##     view
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ControlFlowTok{if}\NormalTok{ (}\SpecialCharTok{!}\FunctionTok{require}\NormalTok{(}\StringTok{"psych"}\NormalTok{)) }\FunctionTok{install.packages}\NormalTok{(}\StringTok{"psych"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Loading required package: psych
+## 
+## Attaching package: 'psych'
+## 
+## The following objects are masked from 'package:ggplot2':
+## 
+##     %+%, alpha
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ControlFlowTok{if}\NormalTok{ (}\SpecialCharTok{!}\FunctionTok{require}\NormalTok{(}\StringTok{"wordcloud"}\NormalTok{)) }\FunctionTok{install.packages}\NormalTok{(}\StringTok{"wordcloud"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Loading required package: wordcloud
+## Loading required package: RColorBrewer
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ControlFlowTok{if}\NormalTok{ (}\SpecialCharTok{!}\FunctionTok{require}\NormalTok{(}\StringTok{"pscl"}\NormalTok{)) }\FunctionTok{install.packages}\NormalTok{(}\StringTok{"pscl"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Loading required package: pscl
+## Classes and Methods for R originally developed in the
+## Political Science Computational Laboratory
+## Department of Political Science
+## Stanford University (2002-2015),
+## by and under the direction of Simon Jackman.
+## hurdle and zeroinfl functions by Achim Zeileis.
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ControlFlowTok{if}\NormalTok{ (}\SpecialCharTok{!}\FunctionTok{require}\NormalTok{(}\StringTok{"pROC"}\NormalTok{)) }\FunctionTok{install.packages}\NormalTok{(}\StringTok{"pROC"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Loading required package: pROC
+## Type 'citation("pROC")' for a citation.
+## 
+## Attaching package: 'pROC'
+## 
+## The following objects are masked from 'package:stats':
+## 
+##     cov, smooth, var
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ControlFlowTok{if}\NormalTok{ (}\SpecialCharTok{!}\FunctionTok{require}\NormalTok{(}\StringTok{"factoextra"}\NormalTok{)) }\FunctionTok{install.packages}\NormalTok{(}\StringTok{"factoextra"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Loading required package: factoextra
+## Welcome! Want to learn more? See two factoextra-related books at https://goo.gl/ve3WBa
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ControlFlowTok{if}\NormalTok{ (}\SpecialCharTok{!}\FunctionTok{require}\NormalTok{(}\StringTok{"plotly"}\NormalTok{)) }\FunctionTok{install.packages}\NormalTok{(}\StringTok{"plotly"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Loading required package: plotly
+## 
+## Attaching package: 'plotly'
+## 
+## The following object is masked from 'package:ggplot2':
+## 
+##     last_plot
+## 
+## The following object is masked from 'package:stats':
+## 
+##     filter
+## 
+## The following object is masked from 'package:graphics':
+## 
+##     layout
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Cargar librerías}
+\FunctionTok{library}\NormalTok{(factoextra)}
+\FunctionTok{library}\NormalTok{(tidyverse)}
+\FunctionTok{library}\NormalTok{(lubridate)}
+\FunctionTok{library}\NormalTok{(ggplot2)}
+\FunctionTok{library}\NormalTok{(readr)}
+\FunctionTok{library}\NormalTok{(dplyr)}
+\FunctionTok{library}\NormalTok{(summarytools)}
+\FunctionTok{library}\NormalTok{(car)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Loading required package: carData
+## 
+## Attaching package: 'car'
+## 
+## The following object is masked from 'package:psych':
+## 
+##     logit
+## 
+## The following object is masked from 'package:dplyr':
+## 
+##     recode
+## 
+## The following object is masked from 'package:purrr':
+## 
+##     some
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(tidyr)}
+\FunctionTok{library}\NormalTok{(readxl)}
+\FunctionTok{library}\NormalTok{(broom)}
+\FunctionTok{library}\NormalTok{(psych)}
+\FunctionTok{library}\NormalTok{(wordcloud)}
+\FunctionTok{library}\NormalTok{(RColorBrewer)}
+\FunctionTok{library}\NormalTok{(pscl)}
+\FunctionTok{library}\NormalTok{(pROC)}
+\FunctionTok{library}\NormalTok{(corrplot)}
+\FunctionTok{library}\NormalTok{(reshape2)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Attaching package: 'reshape2'
+## 
+## The following object is masked from 'package:tidyr':
+## 
+##     smiths
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(plotly)}
+\end{Highlighting}
+\end{Shaded}
+
+\subsubsection{Carga de Base de datos}\label{carga-de-base-de-datos}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Cargar archivo XLS}
+\NormalTok{df }\OtherTok{\textless{}{-}} \FunctionTok{read\_excel}\NormalTok{(}\StringTok{"EIS/eis.xlsx"}\NormalTok{)}
+
+\CommentTok{\# Ver las primeras lineas del dataset}
+\FunctionTok{head}\NormalTok{(df)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 6 x 27
+##   ID_proyecto ID_com Nombre_proyecto     Sector   Región Población_total_region
+##         <dbl>  <dbl> <chr>               <chr>    <chr>                   <dbl>
+## 1         239    182 Forestal AndesVerde Forestal Biobío                1600000
+## 2         239     49 Forestal AndesVerde Forestal Biobío                1600000
+## 3         239     61 Forestal AndesVerde Forestal Biobío                1600000
+## 4         239    197 Forestal AndesVerde Forestal Biobío                1600000
+## 5         239    104 Forestal AndesVerde Forestal Biobío                1600000
+## 6         239     89 Forestal AndesVerde Forestal Biobío                1600000
+## # i 21 more variables: Pob_indígena <dbl>, Porcentaje_rural <dbl>,
+## #   Tasa_desempleo <dbl>, Num_actores_clave <dbl>,
+## #   Experiencias_industrias_previas <chr>, Confianza_instituciones <dbl>,
+## #   Participación_ciudadana <dbl>, Conocimiento_proyecto <dbl>,
+## #   Confianza_responsables <dbl>, Organización_comunitaria <chr>,
+## #   Opinion_proyecto <chr>, Principales_vulnerabilidades <chr>,
+## #   Riesgo_desplazamiento <chr>, Impacto_cohesión_social <chr>, ...
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Revisión detallada del dataset}
+\FunctionTok{glimpse}\NormalTok{(df)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Rows: 137
+## Columns: 27
+## $ ID_proyecto                     <dbl> 239, 239, 239, 239, 239, 239, 239, 239~
+## $ ID_com                          <dbl> 182, 49, 61, 197, 104, 89, 57, 120, 10~
+## $ Nombre_proyecto                 <chr> "Forestal AndesVerde", "Forestal Andes~
+## $ Sector                          <chr> "Forestal", "Forestal", "Forestal", "F~
+## $ Región                          <chr> "Biobío", "Biobío", "Biobío", "Biobío"~
+## $ Población_total_region          <dbl> 1600000, 1600000, 1600000, 1600000, 16~
+## $ Pob_indígena                    <dbl> 0.18, 0.18, 0.18, 0.18, 0.18, 0.18, 0.~
+## $ Porcentaje_rural                <dbl> 0.22, 0.22, 0.22, 0.22, 0.22, 0.22, 0.~
+## $ Tasa_desempleo                  <dbl> 0.0942, 0.0942, 0.0942, 0.0942, 0.0942~
+## $ Num_actores_clave               <dbl> 1, 9, 8, 9, 7, 5, 4, 9, 8, 5, 1, 4, 6,~
+## $ Experiencias_industrias_previas <chr> "Sí", "Sí", "Sí", "Sí", "Sí", "Sí", "S~
+## $ Confianza_instituciones         <dbl> 2, 1, 3, 4, 3, 5, 2, 1, 3, 4, 5, 4, 4,~
+## $ Participación_ciudadana         <dbl> 3, 3, 2, 3, 3, 2, 2, 2, 2, 3, 1, 1, 2,~
+## $ Conocimiento_proyecto           <dbl> 5, 3, 1, 1, 2, 2, 5, 3, 3, 3, 3, 3, 3,~
+## $ Confianza_responsables          <dbl> 2, 4, 2, 4, 3, 2, 5, 5, 4, 1, 3, 2, 3,~
+## $ Organización_comunitaria        <chr> "Medio", "Medio", "Medio", "Bajo", "Me~
+## $ Opinion_proyecto                <chr> "Negativa", "Negativa", "Positiva", "P~
+## $ Principales_vulnerabilidades    <chr> "Población rural", "Adulto Mayor", "Mu~
+## $ Riesgo_desplazamiento           <chr> "Bajo", "Bajo", "Bajo", "Bajo", "Bajo"~
+## $ Impacto_cohesión_social         <chr> "Negativo", "Negativo", "Neutro", "Neg~
+## $ Cambio_empleo_local             <chr> "Aumento", "Sin cambio", "Sin cambio",~
+## $ Percepción_ambiental            <dbl> 1, 2, 1, 2, 2, 2, 2, 1, 2, 3, 2, 2, 3,~
+## $ Impacto_seguridad_servicios     <chr> "Negativo", "Neutro", "Negativo", "Neg~
+## $ Impacto_calidad_vida            <chr> "Neutro", "Neutro", "Neutro", "Positiv~
+## $ Conflictos_potenciales          <chr> "Sí", "Sí", "No", "No", "No", "No", "S~
+## $ Satisfacción_mitigación         <dbl> 3, 3, 4, 1, 4, 2, 3, 1, 1, 3, 5, 5, 2,~
+## $ Cumplimiento_compromisos        <chr> "Medio", "Bajo", "Medio", "Alto", "Med~
+\end{verbatim}
+
+\subsubsection{Revisión data frame}\label{revisiuxf3n-data-frame}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DocumentationTok{\#\# Verificar valores nulos}
+\FunctionTok{colSums}\NormalTok{(}\FunctionTok{is.na}\NormalTok{(df))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##                     ID_proyecto                          ID_com 
+##                               0                               0 
+##                 Nombre_proyecto                          Sector 
+##                               0                               0 
+##                          Región          Población_total_region 
+##                               0                               0 
+##                    Pob_indígena                Porcentaje_rural 
+##                               0                               0 
+##                  Tasa_desempleo               Num_actores_clave 
+##                               0                               0 
+## Experiencias_industrias_previas         Confianza_instituciones 
+##                               0                               0 
+##         Participación_ciudadana           Conocimiento_proyecto 
+##                               0                               0 
+##          Confianza_responsables        Organización_comunitaria 
+##                               0                               0 
+##                Opinion_proyecto    Principales_vulnerabilidades 
+##                               0                               0 
+##           Riesgo_desplazamiento         Impacto_cohesión_social 
+##                               0                               0 
+##             Cambio_empleo_local            Percepción_ambiental 
+##                               0                               0 
+##     Impacto_seguridad_servicios            Impacto_calidad_vida 
+##                               0                               0 
+##          Conflictos_potenciales         Satisfacción_mitigación 
+##                               0                               0 
+##        Cumplimiento_compromisos 
+##                               0
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DocumentationTok{\#\# Eliminación de valores nulos si es necesario}
+\NormalTok{df }\OtherTok{\textless{}{-}}\NormalTok{ df }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{drop\_na}\NormalTok{()  }\CommentTok{\# Eliminar filas con valores NA }
+\end{Highlighting}
+\end{Shaded}
+
+\subsection{\texorpdfstring{\textbf{Análisis Linea Base
+Social}}{Análisis Linea Base Social}}\label{anuxe1lisis-linea-base-social}
+
+\subparagraph{\texorpdfstring{\emph{Se presenta un análisis de las
+variables de Linea Base Social, particularmente las variables
+relacionadas con la región donde se ubica el Proyecto en relación a la
+Opinión del
+Proyecto.}}{Se presenta un análisis de las variables de Linea Base Social, particularmente las variables relacionadas con la región donde se ubica el Proyecto en relación a la Opinión del Proyecto.}}\label{se-presenta-un-anuxe1lisis-de-las-variables-de-linea-base-social-particularmente-las-variables-relacionadas-con-la-regiuxf3n-donde-se-ubica-el-proyecto-en-relaciuxf3n-a-la-opiniuxf3n-del-proyecto.}
+
+\subsubsection{\texorpdfstring{\textbf{Resumen
+estadístico}}{Resumen estadístico}}\label{resumen-estaduxedstico}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{descriptivos }\OtherTok{\textless{}{-}}\NormalTok{ df }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{select}\NormalTok{(Población\_total\_region, Pob\_indígena, Porcentaje\_rural, Tasa\_desempleo) }\SpecialCharTok{\%\textgreater{}\%}
+\NormalTok{  psych}\SpecialCharTok{::}\FunctionTok{describe}\NormalTok{()}
+  
+\FunctionTok{print}\NormalTok{(descriptivos) }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##                        vars   n       mean         sd  median    trimmed
+## Población_total_region    1 137 1973722.63 2593296.51 9.0e+05 1545945.95
+## Pob_indígena              2 137       0.15       0.07 1.5e-01       0.15
+## Porcentaje_rural          3 137       0.25       0.16 3.5e-01       0.25
+## Tasa_desempleo            4 137       0.08       0.01 8.0e-02       0.08
+##                              mad   min     max   range  skew kurtosis        se
+## Población_total_region 444780.00 1e+05 7.5e+06 7.4e+06  1.58     0.68 221560.27
+## Pob_indígena                0.07 5e-02 2.5e-01 2.0e-01 -0.14    -1.12      0.01
+## Porcentaje_rural            0.15 2e-02 4.5e-01 4.3e-01 -0.22    -1.61      0.01
+## Tasa_desempleo              0.01 7e-02 1.0e-01 3.0e-02 -0.12    -1.57      0.00
+\end{verbatim}
+
+\subsubsection{\texorpdfstring{\textbf{Resumen general Opinión Proyectos
+por
+Región}}{Resumen general Opinión Proyectos por Región}}\label{resumen-general-opiniuxf3n-proyectos-por-regiuxf3n}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{ggplot}\NormalTok{(df, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =} \FunctionTok{fct\_infreq}\NormalTok{(Opinion\_proyecto), }\AttributeTok{fill =}\NormalTok{ Nombre\_proyecto)) }\SpecialCharTok{+}  \CommentTok{\# Agrupar las opiniones}
+  \FunctionTok{geom\_bar}\NormalTok{(}\AttributeTok{position =} \StringTok{"dodge"}\NormalTok{) }\SpecialCharTok{+}  \CommentTok{\# Mejor visualización con barras separadas}
+  \FunctionTok{theme\_minimal}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{title =} \StringTok{"Opinión sobre Proyectos por Proyecto"}\NormalTok{, }\AttributeTok{x =} \StringTok{"Opinión del Proyecto"}\NormalTok{, }\AttributeTok{y =} \StringTok{"Cantidad"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{theme}\NormalTok{(}\AttributeTok{axis.text.x =} \FunctionTok{element\_text}\NormalTok{(}\AttributeTok{angle =} \DecValTok{45}\NormalTok{, }\AttributeTok{hjust =} \DecValTok{1}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{social_impact_projects_files/figure-latex/unnamed-chunk-5-1.pdf}
+
+\subsubsection{\texorpdfstring{\textbf{Prueba de Hipotesis:Análisis de
+Correlación entre Variables de Línea Base y Opinión del
+Proyecto}}{Prueba de Hipotesis:Análisis de Correlación entre Variables de Línea Base y Opinión del Proyecto}}\label{prueba-de-hipotesisanuxe1lisis-de-correlaciuxf3n-entre-variables-de-luxednea-base-y-opiniuxf3n-del-proyecto}
+
+\paragraph{Hipótesis:}\label{hipuxf3tesis}
+
+\subparagraph{H₀ : No existe una relación significativa entre las
+variables de línea base social y la opinión del
+proyecto.}\label{hux2080-no-existe-una-relaciuxf3n-significativa-entre-las-variables-de-luxednea-base-social-y-la-opiniuxf3n-del-proyecto.}
+
+\subparagraph{H₁: Existe una relación significativa entre al menos una
+de las variables de línea base social y la opinión del
+proyecto.}\label{hux2081-existe-una-relaciuxf3n-significativa-entre-al-menos-una-de-las-variables-de-luxednea-base-social-y-la-opiniuxf3n-del-proyecto.}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{df}\SpecialCharTok{$}\NormalTok{Opinion\_proyecto\_num }\OtherTok{\textless{}{-}} \FunctionTok{ifelse}\NormalTok{(df}\SpecialCharTok{$}\NormalTok{Opinion\_proyecto }\SpecialCharTok{==} \StringTok{"Positiva"}\NormalTok{, }\DecValTok{1}\NormalTok{, }
+                                  \FunctionTok{ifelse}\NormalTok{(df}\SpecialCharTok{$}\NormalTok{Opinion\_proyecto }\SpecialCharTok{==} \StringTok{"Neutra"}\NormalTok{, }\DecValTok{0}\NormalTok{, }\SpecialCharTok{{-}}\DecValTok{1}\NormalTok{))}
+
+\CommentTok{\# Calcular la matriz de correlación}
+
+\NormalTok{correlaciones }\OtherTok{\textless{}{-}} \FunctionTok{cor}\NormalTok{(df[, }\FunctionTok{c}\NormalTok{(}\StringTok{"Población\_total\_region"}\NormalTok{, }\StringTok{"Pob\_indígena"}\NormalTok{, }\StringTok{"Porcentaje\_rural"}\NormalTok{, }
+                            \StringTok{"Tasa\_desempleo"}\NormalTok{, }\StringTok{"Confianza\_instituciones"}\NormalTok{, }\StringTok{"Num\_actores\_clave"}\NormalTok{, }
+                            \StringTok{"Participación\_ciudadana"}\NormalTok{, }\StringTok{"Conocimiento\_proyecto"}\NormalTok{, }
+                            \StringTok{"Confianza\_responsables"}\NormalTok{, }\StringTok{"Opinion\_proyecto\_num"}\NormalTok{)])}
+
+\DocumentationTok{\#\# Visualizar la matriz de correlación}
+
+\FunctionTok{corrplot}\NormalTok{(correlaciones, }\AttributeTok{method =} \StringTok{"circle"}\NormalTok{, }\AttributeTok{type =} \StringTok{"upper"}\NormalTok{, }\AttributeTok{tl.col =} \StringTok{"black"}\NormalTok{, }\AttributeTok{tl.srt =} \DecValTok{45}\NormalTok{, }
+         \AttributeTok{addCoef.col =} \StringTok{"white"}\NormalTok{, }\AttributeTok{number.cex =} \FloatTok{0.7}\NormalTok{)  }\CommentTok{\# Agregar coeficientes de correlación}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{social_impact_projects_files/figure-latex/unnamed-chunk-6-1.pdf}
+
+\subparagraph{\texorpdfstring{\emph{Se rechaza la Hipótesis Nula: Existe
+una correlacion entre la Opinión del Proyecto y las variables Tasa de
+Desempleo.}}{Se rechaza la Hipótesis Nula: Existe una correlacion entre la Opinión del Proyecto y las variables Tasa de Desempleo.}}\label{se-rechaza-la-hipuxf3tesis-nula-existe-una-correlacion-entre-la-opiniuxf3n-del-proyecto-y-las-variables-tasa-de-desempleo.}
+
+\subsubsection{\texorpdfstring{\textbf{Test Correlación de
+Pearson:}}{Test Correlación de Pearson:}}\label{test-correlaciuxf3n-de-pearson}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Test de correlación de Pearson entre Tasa\_desempleo y Opinion\_proyecto\_num}
+\NormalTok{test\_cor\_desempleo\_opinion }\OtherTok{\textless{}{-}} \FunctionTok{cor.test}\NormalTok{(df}\SpecialCharTok{$}\NormalTok{Tasa\_desempleo, df}\SpecialCharTok{$}\NormalTok{Opinion\_proyecto\_num)}
+
+\CommentTok{\# Imprimir los resultados}
+\FunctionTok{print}\NormalTok{(test\_cor\_desempleo\_opinion)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+##  Pearson's product-moment correlation
+## 
+## data:  df$Tasa_desempleo and df$Opinion_proyecto_num
+## t = 16.85, df = 135, p-value < 2.2e-16
+## alternative hypothesis: true correlation is not equal to 0
+## 95 percent confidence interval:
+##  0.7605568 0.8707480
+## sample estimates:
+##       cor 
+## 0.8232596
+\end{verbatim}
+
+\subparagraph{\texorpdfstring{\emph{Existe una fuerte correlación entre
+la Tasa de Desempleo y la Opinión del Proyecto, es decir, a mayor
+desempleo en la Región se puede dar una mayor tendencia a tener una
+opinión positiva del
+proyecto}}{Existe una fuerte correlación entre la Tasa de Desempleo y la Opinión del Proyecto, es decir, a mayor desempleo en la Región se puede dar una mayor tendencia a tener una opinión positiva del proyecto}}\label{existe-una-fuerte-correlaciuxf3n-entre-la-tasa-de-desempleo-y-la-opiniuxf3n-del-proyecto-es-decir-a-mayor-desempleo-en-la-regiuxf3n-se-puede-dar-una-mayor-tendencia-a-tener-una-opiniuxf3n-positiva-del-proyecto}
+
+\subsubsection{\texorpdfstring{\textbf{Análisis de Tasa de desempleo y
+Opinión del
+Proyecto}}{Análisis de Tasa de desempleo y Opinión del Proyecto}}\label{anuxe1lisis-de-tasa-de-desempleo-y-opiniuxf3n-del-proyecto}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{df}\SpecialCharTok{$}\NormalTok{Opinion\_proyecto\_num }\OtherTok{\textless{}{-}} \FunctionTok{ifelse}\NormalTok{(df}\SpecialCharTok{$}\NormalTok{Opinion\_proyecto }\SpecialCharTok{==} \StringTok{"Negativa"}\NormalTok{, }\DecValTok{1}\NormalTok{,}
+                                  \FunctionTok{ifelse}\NormalTok{(df}\SpecialCharTok{$}\NormalTok{Opinion\_proyecto }\SpecialCharTok{==} \StringTok{"Neutral"}\NormalTok{, }\DecValTok{2}\NormalTok{,}
+                                         \FunctionTok{ifelse}\NormalTok{(df}\SpecialCharTok{$}\NormalTok{Opinion\_proyecto }\SpecialCharTok{==} \StringTok{"Positiva"}\NormalTok{, }\DecValTok{3}\NormalTok{, }\ConstantTok{NA}\NormalTok{)))}
+
+\FunctionTok{library}\NormalTok{(plotly)}
+\FunctionTok{library}\NormalTok{(ggplot2)}
+
+
+\NormalTok{p }\OtherTok{\textless{}{-}} \FunctionTok{ggplot}\NormalTok{(df, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ Tasa\_desempleo, }\AttributeTok{y =}\NormalTok{ Opinion\_proyecto\_num, }\AttributeTok{color =}\NormalTok{ Región)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_point}\NormalTok{(}\AttributeTok{size =} \DecValTok{3}\NormalTok{, }\AttributeTok{alpha =} \FloatTok{0.7}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{geom\_smooth}\NormalTok{(}\AttributeTok{method =} \StringTok{"lm"}\NormalTok{, }\AttributeTok{se =} \ConstantTok{FALSE}\NormalTok{, }\AttributeTok{color =} \StringTok{"black"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{theme\_minimal}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{title =} \StringTok{"Relación entre Tasa de Desempleo y Opinión del Proyecto"}\NormalTok{,}
+       \AttributeTok{x =} \StringTok{"Tasa de Desempleo"}\NormalTok{, }\AttributeTok{y =} \StringTok{"Opinión del Proyecto (Numérica)"}\NormalTok{,}
+       \AttributeTok{color =} \StringTok{"Región"}\NormalTok{)}
+
+\CommentTok{\# ggplotly(p) \# Gráfico interactivo con plotly}
+\end{Highlighting}
+\end{Shaded}
+
+\subsubsection{\texorpdfstring{\textbf{Análisis de la relación entre
+Población indígena, Tasa de Desempleo y Opinión del
+Proyecto}}{Análisis de la relación entre Población indígena, Tasa de Desempleo y Opinión del Proyecto}}\label{anuxe1lisis-de-la-relaciuxf3n-entre-poblaciuxf3n-induxedgena-tasa-de-desempleo-y-opiniuxf3n-del-proyecto}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DocumentationTok{\#\# Gráfico de dispersión entre Pob\_indígena y Opinión del Proyecto}
+\FunctionTok{ggplot}\NormalTok{(df, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ Pob\_indígena, }\AttributeTok{y =}\NormalTok{ Opinion\_proyecto\_num, }\AttributeTok{color =}\NormalTok{ Tasa\_desempleo)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_point}\NormalTok{(}\AttributeTok{size =} \DecValTok{3}\NormalTok{, }\AttributeTok{alpha =} \FloatTok{0.7}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{geom\_smooth}\NormalTok{(}\AttributeTok{method =} \StringTok{"lm"}\NormalTok{, }\AttributeTok{se =} \ConstantTok{FALSE}\NormalTok{, }\AttributeTok{color =} \StringTok{"black"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{theme\_minimal}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{title =} \StringTok{"Relación entre Población Indígena y Opinión del Proyecto"}\NormalTok{, }\AttributeTok{x =} \StringTok{"Población Indígena"}\NormalTok{, }
+       \AttributeTok{y =} \StringTok{"Opinión del Proyecto (Numérica)"}\NormalTok{, }\AttributeTok{color =} \StringTok{"Tasa de Desempleo"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## `geom_smooth()` using formula = 'y ~ x'
+\end{verbatim}
+
+\begin{verbatim}
+## Warning: Removed 20 rows containing non-finite outside the scale range
+## (`stat_smooth()`).
+\end{verbatim}
+
+\begin{verbatim}
+## Warning: Removed 20 rows containing missing values or values outside the scale range
+## (`geom_point()`).
+\end{verbatim}
+
+\includegraphics{social_impact_projects_files/figure-latex/unnamed-chunk-9-1.pdf}
+
+\subsubsection{\texorpdfstring{\textbf{Confianza en responsables del
+proyecto}}{Confianza en responsables del proyecto}}\label{confianza-en-responsables-del-proyecto}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{ggplot}\NormalTok{(df, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ Opinion\_proyecto, }\AttributeTok{y =}\NormalTok{ Confianza\_instituciones)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_boxplot}\NormalTok{(}\AttributeTok{fill =} \StringTok{"lightblue"}\NormalTok{, }\AttributeTok{color =} \StringTok{"black"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{theme\_minimal}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{title =} \StringTok{"Confianza en Instituciones según Opinión del Proyecto"}\NormalTok{, }
+       \AttributeTok{x =} \StringTok{"Opinión sobre el Proyecto"}\NormalTok{, }\AttributeTok{y =} \StringTok{"Confianza en Instituciones"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{social_impact_projects_files/figure-latex/unnamed-chunk-10-1.pdf}
+
+\subsubsection{\texorpdfstring{\textbf{Organización
+comunitaria}}{Organización comunitaria}}\label{organizaciuxf3n-comunitaria}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DocumentationTok{\#\# Gráfico de violín de Opinión del Proyecto en relación a la organización comunitaria.}
+\FunctionTok{ggplot}\NormalTok{(df, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ Organización\_comunitaria, }\AttributeTok{y =}\NormalTok{ Opinion\_proyecto\_num, }\AttributeTok{fill =}\NormalTok{ Organización\_comunitaria)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_violin}\NormalTok{(}\AttributeTok{alpha =} \FloatTok{0.7}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{theme\_minimal}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{title =} \StringTok{"Distribución de la Opinión del Proyecto por Nivel de Organización Comunitaria"}\NormalTok{, }
+       \AttributeTok{x =} \StringTok{"Organización Comunitaria"}\NormalTok{, }\AttributeTok{y =} \StringTok{"Opinión del Proyecto (Numérica)"}\NormalTok{, }\AttributeTok{fill =} \StringTok{"Organización Comunitaria"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning: Removed 20 rows containing non-finite outside the scale range
+## (`stat_ydensity()`).
+\end{verbatim}
+
+\includegraphics{social_impact_projects_files/figure-latex/unnamed-chunk-11-1.pdf}
+
+\subsubsection{\texorpdfstring{\textbf{Conocimiento del
+proyecto}}{Conocimiento del proyecto}}\label{conocimiento-del-proyecto}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DocumentationTok{\#\# Relación entre Conocimiento del Proyecto y el Proyecto}
+\FunctionTok{ggplot}\NormalTok{(df, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ Nombre\_proyecto, }\AttributeTok{y =}\NormalTok{ Conocimiento\_proyecto, }\AttributeTok{fill =}\NormalTok{ Nombre\_proyecto)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_violin}\NormalTok{(}\AttributeTok{alpha =} \FloatTok{0.6}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{theme\_minimal}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{theme}\NormalTok{(}\AttributeTok{axis.text.x =} \FunctionTok{element\_text}\NormalTok{(}\AttributeTok{angle =} \DecValTok{45}\NormalTok{, }\AttributeTok{hjust =} \DecValTok{1}\NormalTok{)) }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{title =} \StringTok{"Conocimiento del Proyecto"}\NormalTok{, }\AttributeTok{x =} \StringTok{"Proyecto"}\NormalTok{, }\AttributeTok{y =} \StringTok{"Conocimiento del Proyecto"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{social_impact_projects_files/figure-latex/unnamed-chunk-12-1.pdf}
+
+\subsubsection{\texorpdfstring{\textbf{Prueba de Hipótesis:} Regresión
+Lineal para predecir la Opinión del
+Proyecto}{Prueba de Hipótesis: Regresión Lineal para predecir la Opinión del Proyecto}}\label{prueba-de-hipuxf3tesis-regresiuxf3n-lineal-para-predecir-la-opiniuxf3n-del-proyecto}
+
+\paragraph{Hipótesis:}\label{hipuxf3tesis-1}
+
+\subparagraph{H₀ : Ninguna de las variables independientes tiene un
+efecto significativo sobre la opinión del
+proyecto.}\label{hux2080-ninguna-de-las-variables-independientes-tiene-un-efecto-significativo-sobre-la-opiniuxf3n-del-proyecto.}
+
+\subparagraph{H₁: Al menos una de las variables independientes tiene un
+efecto significativo sobre la opinión del
+proyecto.}\label{hux2081-al-menos-una-de-las-variables-independientes-tiene-un-efecto-significativo-sobre-la-opiniuxf3n-del-proyecto.}
+
+\subsubsection{\texorpdfstring{\textbf{Regresión
+Lineal}}{Regresión Lineal}}\label{regresiuxf3n-lineal}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{modelo }\OtherTok{\textless{}{-}} \FunctionTok{lm}\NormalTok{(Opinion\_proyecto\_num }\SpecialCharTok{\textasciitilde{}}\NormalTok{ Población\_total\_region }\SpecialCharTok{+}\NormalTok{ Pob\_indígena }\SpecialCharTok{+}\NormalTok{ Porcentaje\_rural }\SpecialCharTok{+} 
+\NormalTok{               Tasa\_desempleo }\SpecialCharTok{+}\NormalTok{ Confianza\_instituciones }\SpecialCharTok{+}\NormalTok{ Num\_actores\_clave }\SpecialCharTok{+} 
+\NormalTok{               Participación\_ciudadana }\SpecialCharTok{+}\NormalTok{ Conocimiento\_proyecto }\SpecialCharTok{+}\NormalTok{ Confianza\_responsables, }
+             \AttributeTok{data =}\NormalTok{ df)}
+\FunctionTok{summary}\NormalTok{(modelo)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Call:
+## lm(formula = Opinion_proyecto_num ~ Población_total_region + 
+##     Pob_indígena + Porcentaje_rural + Tasa_desempleo + Confianza_instituciones + 
+##     Num_actores_clave + Participación_ciudadana + Conocimiento_proyecto + 
+##     Confianza_responsables, data = df)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -1.85503 -0.09510  0.06297  0.17358  0.64515 
+## 
+## Coefficients:
+##                           Estimate Std. Error t value Pr(>|t|)    
+## (Intercept)             -6.147e+00  1.977e+00  -3.108  0.00241 ** 
+## Población_total_region   1.127e-07  2.736e-08   4.119 7.51e-05 ***
+## Pob_indígena             2.806e+00  6.916e+00   0.406  0.68571    
+## Porcentaje_rural         2.207e-01  1.374e+00   0.161  0.87265    
+## Tasa_desempleo           8.445e+01  3.164e+01   2.669  0.00880 ** 
+## Confianza_instituciones  1.006e-01  4.254e-02   2.365  0.01982 *  
+## Num_actores_clave        9.125e-03  1.673e-02   0.545  0.58656    
+## Participación_ciudadana -2.019e-02  4.229e-02  -0.477  0.63408    
+## Conocimiento_proyecto   -2.844e-02  3.843e-02  -0.740  0.46090    
+## Confianza_responsables   5.819e-03  3.110e-02   0.187  0.85192    
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 0.4673 on 107 degrees of freedom
+##   (20 observations deleted due to missingness)
+## Multiple R-squared:  0.8002, Adjusted R-squared:  0.7834 
+## F-statistic: 47.61 on 9 and 107 DF,  p-value: < 2.2e-16
+\end{verbatim}
+
+\subparagraph{\texorpdfstring{\emph{Las variables más importantes para
+predecir la opinión sobre el proyecto son la población total de la
+región, la tasa de desempleo y la confianza en las instituciones. Otras
+variables como la población indígena, el porcentaje rural, el número de
+actores clave, la participación ciudadana, el conocimiento del proyecto
+y la confianza en los responsables no tienen un impacto significativo en
+la opinión sobre el proyecto en este
+modelo.}}{Las variables más importantes para predecir la opinión sobre el proyecto son la población total de la región, la tasa de desempleo y la confianza en las instituciones. Otras variables como la población indígena, el porcentaje rural, el número de actores clave, la participación ciudadana, el conocimiento del proyecto y la confianza en los responsables no tienen un impacto significativo en la opinión sobre el proyecto en este modelo.}}\label{las-variables-muxe1s-importantes-para-predecir-la-opiniuxf3n-sobre-el-proyecto-son-la-poblaciuxf3n-total-de-la-regiuxf3n-la-tasa-de-desempleo-y-la-confianza-en-las-instituciones.-otras-variables-como-la-poblaciuxf3n-induxedgena-el-porcentaje-rural-el-nuxfamero-de-actores-clave-la-participaciuxf3n-ciudadana-el-conocimiento-del-proyecto-y-la-confianza-en-los-responsables-no-tienen-un-impacto-significativo-en-la-opiniuxf3n-sobre-el-proyecto-en-este-modelo.}
+
+\subsection{\texorpdfstring{\textbf{Análisis de Variables de
+Impacto}}{Análisis de Variables de Impacto}}\label{anuxe1lisis-de-variables-de-impacto}
+
+\subsubsection{\texorpdfstring{\textbf{Riesgo de
+desplazamiento}}{Riesgo de desplazamiento}}\label{riesgo-de-desplazamiento}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DocumentationTok{\#\# Gráfico de barras para Riesgo\_desplazamiento por proyecto}
+\FunctionTok{ggplot}\NormalTok{(df, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ Nombre\_proyecto, }\AttributeTok{fill =}\NormalTok{ Riesgo\_desplazamiento)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_bar}\NormalTok{(}\AttributeTok{position =} \StringTok{"dodge"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{theme\_minimal}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{title =} \StringTok{"Distribución del Riesgo de Desplazamiento por Proyecto"}\NormalTok{,}
+       \AttributeTok{x =} \StringTok{"Proyecto"}\NormalTok{, }\AttributeTok{y =} \StringTok{"Frecuencia"}\NormalTok{, }\AttributeTok{fill =} \StringTok{"Riesgo de Desplazamiento"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{theme}\NormalTok{(}\AttributeTok{axis.text.x =} \FunctionTok{element\_text}\NormalTok{(}\AttributeTok{angle =} \DecValTok{45}\NormalTok{, }\AttributeTok{hjust =} \DecValTok{1}\NormalTok{), }
+        \AttributeTok{plot.title =} \FunctionTok{element\_text}\NormalTok{(}\AttributeTok{hjust =} \FloatTok{0.5}\NormalTok{, }\AttributeTok{size =} \DecValTok{14}\NormalTok{, }\AttributeTok{face =} \StringTok{"bold"}\NormalTok{),}
+        \AttributeTok{axis.title =} \FunctionTok{element\_text}\NormalTok{(}\AttributeTok{size =} \DecValTok{12}\NormalTok{),}
+        \AttributeTok{axis.text =} \FunctionTok{element\_text}\NormalTok{(}\AttributeTok{size =} \DecValTok{10}\NormalTok{)) }\SpecialCharTok{+}
+  \FunctionTok{scale\_fill\_brewer}\NormalTok{(}\AttributeTok{palette =} \StringTok{"Set1"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{social_impact_projects_files/figure-latex/unnamed-chunk-14-1.pdf}
+
+\subsubsection{\texorpdfstring{\textbf{Cohesión
+social}}{Cohesión social}}\label{cohesiuxf3n-social}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DocumentationTok{\#\# Gráfico de barras para Impacto\_cohesión\_social por proyecto}
+\FunctionTok{ggplot}\NormalTok{(df, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ Nombre\_proyecto, }\AttributeTok{fill =}\NormalTok{ Impacto\_cohesión\_social)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_bar}\NormalTok{(}\AttributeTok{position =} \StringTok{"dodge"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{theme\_minimal}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{title =} \StringTok{"Distribución del Impacto en la Cohesión Social por Proyecto"}\NormalTok{,}
+       \AttributeTok{x =} \StringTok{"Proyecto"}\NormalTok{, }\AttributeTok{y =} \StringTok{"Frecuencia"}\NormalTok{, }\AttributeTok{fill =} \StringTok{"Impacto en la Cohesión Social"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{theme}\NormalTok{(}\AttributeTok{axis.text.x =} \FunctionTok{element\_text}\NormalTok{(}\AttributeTok{angle =} \DecValTok{45}\NormalTok{, }\AttributeTok{hjust =} \DecValTok{1}\NormalTok{), }
+        \AttributeTok{plot.title =} \FunctionTok{element\_text}\NormalTok{(}\AttributeTok{hjust =} \FloatTok{0.5}\NormalTok{, }\AttributeTok{size =} \DecValTok{14}\NormalTok{, }\AttributeTok{face =} \StringTok{"bold"}\NormalTok{),}
+        \AttributeTok{axis.title =} \FunctionTok{element\_text}\NormalTok{(}\AttributeTok{size =} \DecValTok{12}\NormalTok{),}
+        \AttributeTok{axis.text =} \FunctionTok{element\_text}\NormalTok{(}\AttributeTok{size =} \DecValTok{10}\NormalTok{)) }\SpecialCharTok{+}
+  \FunctionTok{scale\_fill\_brewer}\NormalTok{(}\AttributeTok{palette =} \StringTok{"Set2"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{social_impact_projects_files/figure-latex/unnamed-chunk-15-1.pdf}
+
+\subsubsection{\texorpdfstring{\textbf{Percepción
+ambiental}}{Percepción ambiental}}\label{percepciuxf3n-ambiental}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Gráfico de caja para Percepción\_ambiental por proyecto}
+\FunctionTok{ggplot}\NormalTok{(df, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ Nombre\_proyecto, }\AttributeTok{y =}\NormalTok{ Percepción\_ambiental, }\AttributeTok{fill =}\NormalTok{ Nombre\_proyecto)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_boxplot}\NormalTok{(}\AttributeTok{alpha =} \FloatTok{0.7}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{theme\_minimal}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{title =} \StringTok{"Distribución de la Percepción Ambiental por Proyecto"}\NormalTok{,}
+       \AttributeTok{x =} \StringTok{"Proyecto"}\NormalTok{, }\AttributeTok{y =} \StringTok{"Percepción Ambiental"}\NormalTok{, }\AttributeTok{fill =} \StringTok{"Proyecto"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{theme}\NormalTok{(}\AttributeTok{axis.text.x =} \FunctionTok{element\_text}\NormalTok{(}\AttributeTok{angle =} \DecValTok{45}\NormalTok{, }\AttributeTok{hjust =} \DecValTok{1}\NormalTok{), }
+        \AttributeTok{plot.title =} \FunctionTok{element\_text}\NormalTok{(}\AttributeTok{hjust =} \FloatTok{0.5}\NormalTok{, }\AttributeTok{size =} \DecValTok{14}\NormalTok{, }\AttributeTok{face =} \StringTok{"bold"}\NormalTok{),}
+        \AttributeTok{axis.title =} \FunctionTok{element\_text}\NormalTok{(}\AttributeTok{size =} \DecValTok{12}\NormalTok{),}
+        \AttributeTok{axis.text =} \FunctionTok{element\_text}\NormalTok{(}\AttributeTok{size =} \DecValTok{10}\NormalTok{)) }\SpecialCharTok{+}
+  \FunctionTok{scale\_fill\_brewer}\NormalTok{(}\AttributeTok{palette =} \StringTok{"Pastel1"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{social_impact_projects_files/figure-latex/unnamed-chunk-16-1.pdf}
+
+\subsubsection{\texorpdfstring{\textbf{Conflictos
+potenciales}}{Conflictos potenciales}}\label{conflictos-potenciales}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DocumentationTok{\#\# Gráfico de barras para Conflictos\_potenciales por proyecto}
+\FunctionTok{ggplot}\NormalTok{(df, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ Nombre\_proyecto, }\AttributeTok{fill =}\NormalTok{ Conflictos\_potenciales)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_bar}\NormalTok{(}\AttributeTok{position =} \StringTok{"fill"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{theme\_minimal}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{title =} \StringTok{"Proporción de Conflictos Potenciales por Proyecto"}\NormalTok{,}
+       \AttributeTok{x =} \StringTok{"Proyecto"}\NormalTok{, }\AttributeTok{y =} \StringTok{"Proporción"}\NormalTok{, }\AttributeTok{fill =} \StringTok{"Conflictos Potenciales"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{theme}\NormalTok{(}\AttributeTok{axis.text.x =} \FunctionTok{element\_text}\NormalTok{(}\AttributeTok{angle =} \DecValTok{45}\NormalTok{, }\AttributeTok{hjust =} \DecValTok{1}\NormalTok{), }
+        \AttributeTok{plot.title =} \FunctionTok{element\_text}\NormalTok{(}\AttributeTok{hjust =} \FloatTok{0.5}\NormalTok{, }\AttributeTok{size =} \DecValTok{14}\NormalTok{, }\AttributeTok{face =} \StringTok{"bold"}\NormalTok{),}
+        \AttributeTok{axis.title =} \FunctionTok{element\_text}\NormalTok{(}\AttributeTok{size =} \DecValTok{12}\NormalTok{),}
+        \AttributeTok{axis.text =} \FunctionTok{element\_text}\NormalTok{(}\AttributeTok{size =} \DecValTok{10}\NormalTok{)) }\SpecialCharTok{+}
+  \FunctionTok{scale\_y\_continuous}\NormalTok{(}\AttributeTok{labels =}\NormalTok{ scales}\SpecialCharTok{::}\FunctionTok{percent\_format}\NormalTok{()) }\SpecialCharTok{+}
+  \FunctionTok{scale\_fill\_brewer}\NormalTok{(}\AttributeTok{palette =} \StringTok{"Set2"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{social_impact_projects_files/figure-latex/unnamed-chunk-17-1.pdf}
+
+\subsubsection{\texorpdfstring{\textbf{Prueba de Hipótesis:} Correlación
+entre Variables de Impacto y Opinión del
+Proyecto}{Prueba de Hipótesis: Correlación entre Variables de Impacto y Opinión del Proyecto}}\label{prueba-de-hipuxf3tesis-correlaciuxf3n-entre-variables-de-impacto-y-opiniuxf3n-del-proyecto}
+
+\paragraph{Hipótesis:}\label{hipuxf3tesis-2}
+
+\subparagraph{H₀: No existe una correlación significativa entre las
+variables de impacto (Riesgo de desplazamiento, Impacto en la cohesión
+social, Cambio en el empleo local, Percepción ambiental, Impacto en la
+seguridad y servicios, Conflictos potenciales) y la opinión del
+proyecto.}\label{hux2080-no-existe-una-correlaciuxf3n-significativa-entre-las-variables-de-impacto-riesgo-de-desplazamiento-impacto-en-la-cohesiuxf3n-social-cambio-en-el-empleo-local-percepciuxf3n-ambiental-impacto-en-la-seguridad-y-servicios-conflictos-potenciales-y-la-opiniuxf3n-del-proyecto.}
+
+\subparagraph{H₁: Existe una correlación significativa entre al menos
+una de las variables de impacto y la opinión del
+proyecto.}\label{hux2081-existe-una-correlaciuxf3n-significativa-entre-al-menos-una-de-las-variables-de-impacto-y-la-opiniuxf3n-del-proyecto.}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DocumentationTok{\#\# Correlación}
+\CommentTok{\# Convertir variables categóricas a numéricas para el análisis de correlación}
+\NormalTok{df\_cor }\OtherTok{\textless{}{-}}\NormalTok{ df }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{mutate}\NormalTok{(}
+    \AttributeTok{Riesgo\_desplazamiento\_num =} \FunctionTok{case\_when}\NormalTok{(}
+\NormalTok{      Riesgo\_desplazamiento }\SpecialCharTok{==} \StringTok{"Alto"} \SpecialCharTok{\textasciitilde{}} \DecValTok{3}\NormalTok{,}
+\NormalTok{      Riesgo\_desplazamiento }\SpecialCharTok{==} \StringTok{"Medio"} \SpecialCharTok{\textasciitilde{}} \DecValTok{2}\NormalTok{,}
+\NormalTok{      Riesgo\_desplazamiento }\SpecialCharTok{==} \StringTok{"Bajo"} \SpecialCharTok{\textasciitilde{}} \DecValTok{1}
+\NormalTok{    ),}
+\NormalTok{    Impacto\_cohesión}\AttributeTok{\_social\_num =} \FunctionTok{case\_when}\NormalTok{(}
+\NormalTok{      Impacto\_cohesión\_social }\SpecialCharTok{==} \StringTok{"Positivo"} \SpecialCharTok{\textasciitilde{}} \DecValTok{1}\NormalTok{,}
+\NormalTok{      Impacto\_cohesión\_social }\SpecialCharTok{==} \StringTok{"Neutro"} \SpecialCharTok{\textasciitilde{}} \DecValTok{0}\NormalTok{,}
+\NormalTok{      Impacto\_cohesión\_social }\SpecialCharTok{==} \StringTok{"Negativo"} \SpecialCharTok{\textasciitilde{}} \SpecialCharTok{{-}}\DecValTok{1}
+\NormalTok{    ),}
+    \AttributeTok{Cambio\_empleo\_local\_num =} \FunctionTok{case\_when}\NormalTok{(}
+\NormalTok{      Cambio\_empleo\_local }\SpecialCharTok{==} \StringTok{"Aumento"} \SpecialCharTok{\textasciitilde{}} \DecValTok{1}\NormalTok{,}
+\NormalTok{      Cambio\_empleo\_local }\SpecialCharTok{==} \StringTok{"Sin cambio"} \SpecialCharTok{\textasciitilde{}} \DecValTok{0}\NormalTok{,}
+\NormalTok{      Cambio\_empleo\_local }\SpecialCharTok{==} \StringTok{"Disminución"} \SpecialCharTok{\textasciitilde{}} \SpecialCharTok{{-}}\DecValTok{1}
+\NormalTok{    ),}
+    \AttributeTok{Impacto\_seguridad\_servicios\_num =} \FunctionTok{case\_when}\NormalTok{(}
+\NormalTok{      Impacto\_seguridad\_servicios }\SpecialCharTok{==} \StringTok{"Positivo"} \SpecialCharTok{\textasciitilde{}} \DecValTok{1}\NormalTok{,}
+\NormalTok{      Impacto\_seguridad\_servicios }\SpecialCharTok{==} \StringTok{"Neutro"} \SpecialCharTok{\textasciitilde{}} \DecValTok{0}\NormalTok{,}
+\NormalTok{      Impacto\_seguridad\_servicios }\SpecialCharTok{==} \StringTok{"Negativo"} \SpecialCharTok{\textasciitilde{}} \SpecialCharTok{{-}}\DecValTok{1}
+\NormalTok{    ),}
+    \AttributeTok{Conflictos\_potenciales\_num =} \FunctionTok{ifelse}\NormalTok{(Conflictos\_potenciales }\SpecialCharTok{==} \StringTok{"Sí"}\NormalTok{, }\DecValTok{1}\NormalTok{, }\DecValTok{0}\NormalTok{)}
+\NormalTok{  )}
+
+\CommentTok{\# Calcular la matriz de correlación}
+\NormalTok{correlaciones }\OtherTok{\textless{}{-}} \FunctionTok{cor}\NormalTok{(df\_cor[, }\FunctionTok{c}\NormalTok{(}\StringTok{"Riesgo\_desplazamiento\_num"}\NormalTok{, }\StringTok{"Impacto\_cohesión\_social\_num"}\NormalTok{, }
+                                \StringTok{"Cambio\_empleo\_local\_num"}\NormalTok{, }\StringTok{"Percepción\_ambiental"}\NormalTok{, }
+                                \StringTok{"Impacto\_seguridad\_servicios\_num"}\NormalTok{, }\StringTok{"Conflictos\_potenciales\_num"}\NormalTok{)])}
+
+\CommentTok{\# Visualizar la matriz de correlación}
+\FunctionTok{corrplot}\NormalTok{(correlaciones, }\AttributeTok{method =} \StringTok{"circle"}\NormalTok{, }\AttributeTok{type =} \StringTok{"upper"}\NormalTok{, }\AttributeTok{tl.col =} \StringTok{"black"}\NormalTok{, }\AttributeTok{tl.srt =} \DecValTok{45}\NormalTok{,}
+         \AttributeTok{title =} \StringTok{"Matriz de Correlación de Variables de Impacto"}\NormalTok{, }\AttributeTok{mar =} \FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{0}\NormalTok{,}\DecValTok{1}\NormalTok{,}\DecValTok{0}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{social_impact_projects_files/figure-latex/unnamed-chunk-18-1.pdf}
+
+\subparagraph{\texorpdfstring{\emph{La Prueba La correlación más fuerte
+es entre Riesgo\_desplazamiento\_num y Conflictos\_potenciales\_num
+(0.631), lo que indica una relación importante entre estas dos
+variables, la percepción ambiental también parece estar relacionada con
+los conflictos potenciales, aunque de manera negativa (-0.259). Las
+demás correlaciones son débiles o no significativas, lo que sugiere que
+no hay una relación lineal fuerte entre esas
+variables.}}{La Prueba La correlación más fuerte es entre Riesgo\_desplazamiento\_num y Conflictos\_potenciales\_num (0.631), lo que indica una relación importante entre estas dos variables, la percepción ambiental también parece estar relacionada con los conflictos potenciales, aunque de manera negativa (-0.259). Las demás correlaciones son débiles o no significativas, lo que sugiere que no hay una relación lineal fuerte entre esas variables.}}\label{la-prueba-la-correlaciuxf3n-muxe1s-fuerte-es-entre-riesgo_desplazamiento_num-y-conflictos_potenciales_num-0.631-lo-que-indica-una-relaciuxf3n-importante-entre-estas-dos-variables-la-percepciuxf3n-ambiental-tambiuxe9n-parece-estar-relacionada-con-los-conflictos-potenciales-aunque-de-manera-negativa--0.259.-las-demuxe1s-correlaciones-son-duxe9biles-o-no-significativas-lo-que-sugiere-que-no-hay-una-relaciuxf3n-lineal-fuerte-entre-esas-variables.}
+
+\subsubsection{\texorpdfstring{\textbf{Prueba de
+Significancia}}{Prueba de Significancia}}\label{prueba-de-significancia}
+
+\subparagraph{Para evaluar la significancia estadística de las
+correlaciones, se realizó una prueba de hipótesis para cada coeficiente
+de correlación utilizando la función
+cor.test().}\label{para-evaluar-la-significancia-estaduxedstica-de-las-correlaciones-se-realizuxf3-una-prueba-de-hipuxf3tesis-para-cada-coeficiente-de-correlaciuxf3n-utilizando-la-funciuxf3n-cor.test.}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Prueba de significancia para cada correlación}
+\CommentTok{\# Crear los resultados de la correlación}
+\NormalTok{resultados\_cor\_impacto }\OtherTok{\textless{}{-}} \FunctionTok{list}\NormalTok{()}
+
+\NormalTok{variables\_impacto }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{"Riesgo\_desplazamiento\_num"}\NormalTok{, }\StringTok{"Conflictos\_potenciales\_num"}\NormalTok{)}
+
+\ControlFlowTok{for}\NormalTok{ (var }\ControlFlowTok{in}\NormalTok{ variables\_impacto) \{}
+\NormalTok{  test }\OtherTok{\textless{}{-}} \FunctionTok{cor.test}\NormalTok{(df\_cor[[var]], df\_cor}\SpecialCharTok{$}\NormalTok{Opinion\_proyecto\_num)}
+\NormalTok{  resultados\_cor\_impacto[[var]] }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(}
+    \AttributeTok{Variable =}\NormalTok{ var,}
+\NormalTok{    Correlación }\OtherTok{=}\NormalTok{ test}\SpecialCharTok{$}\NormalTok{estimate,}
+    \AttributeTok{P\_valor =}\NormalTok{ test}\SpecialCharTok{$}\NormalTok{p.value}
+\NormalTok{  )}
+\NormalTok{\}}
+
+\CommentTok{\# Combinar los resultados en un solo dataframe}
+\NormalTok{resultados\_cor\_impacto\_df }\OtherTok{\textless{}{-}} \FunctionTok{do.call}\NormalTok{(rbind, resultados\_cor\_impacto)}
+
+\CommentTok{\# Agregar la columna de significancia}
+\NormalTok{resultados\_cor\_impacto\_df }\OtherTok{\textless{}{-}}\NormalTok{ resultados\_cor\_impacto\_df }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{Significancia =} \FunctionTok{ifelse}\NormalTok{(P\_valor }\SpecialCharTok{\textless{}} \FloatTok{0.05}\NormalTok{, }\StringTok{"Significativa"}\NormalTok{, }\StringTok{"No significativa"}\NormalTok{))}
+
+\CommentTok{\# Imprimir los resultados}
+\FunctionTok{print}\NormalTok{(resultados\_cor\_impacto\_df)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##                                              Variable Correlación      P_valor
+## Riesgo_desplazamiento_num   Riesgo_desplazamiento_num  -0.7871976 6.774577e-26
+## Conflictos_potenciales_num Conflictos_potenciales_num  -0.8979831 8.259472e-43
+##                            Significancia
+## Riesgo_desplazamiento_num  Significativa
+## Conflictos_potenciales_num Significativa
+\end{verbatim}
+
+\subparagraph{\texorpdfstring{\emph{Esta prueba indica que ambas
+correlaciones son negativas y significativas, lo que sugiere que los
+factores de riesgo de desplazamiento y conflictos potenciales influyen
+negativamente en la opinión sobre el proyecto. Dado que los p-valores,
+podemos rechazar la hipótesis nula (H₀) de que no existe correlación y
+afirmar que estos factores tienen una relación significativa con la
+opinión sobre el
+proyecto.}}{Esta prueba indica que ambas correlaciones son negativas y significativas, lo que sugiere que los factores de riesgo de desplazamiento y conflictos potenciales influyen negativamente en la opinión sobre el proyecto. Dado que los p-valores, podemos rechazar la hipótesis nula (H₀) de que no existe correlación y afirmar que estos factores tienen una relación significativa con la opinión sobre el proyecto.}}\label{esta-prueba-indica-que-ambas-correlaciones-son-negativas-y-significativas-lo-que-sugiere-que-los-factores-de-riesgo-de-desplazamiento-y-conflictos-potenciales-influyen-negativamente-en-la-opiniuxf3n-sobre-el-proyecto.-dado-que-los-p-valores-podemos-rechazar-la-hipuxf3tesis-nula-hux2080-de-que-no-existe-correlaciuxf3n-y-afirmar-que-estos-factores-tienen-una-relaciuxf3n-significativa-con-la-opiniuxf3n-sobre-el-proyecto.}
+
+\subparagraph{\texorpdfstring{\emph{La correlación más fuerte es la de
+conflictos potenciales (-0.8980), lo que indica que este factor podría
+tener un impacto aún mayor en la percepción del
+proyecto.}}{La correlación más fuerte es la de conflictos potenciales (-0.8980), lo que indica que este factor podría tener un impacto aún mayor en la percepción del proyecto.}}\label{la-correlaciuxf3n-muxe1s-fuerte-es-la-de-conflictos-potenciales--0.8980-lo-que-indica-que-este-factor-podruxeda-tener-un-impacto-auxfan-mayor-en-la-percepciuxf3n-del-proyecto.}
+
+\subsubsection{\texorpdfstring{\textbf{Análisis Variable Impacto calidad
+de
+vida}}{Análisis Variable Impacto calidad de vida}}\label{anuxe1lisis-variable-impacto-calidad-de-vida}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DocumentationTok{\#\# Análisis variable Impacto calidad de vida por proyecto}
+\NormalTok{tabla\_calidad\_vida }\OtherTok{\textless{}{-}} \FunctionTok{table}\NormalTok{(df}\SpecialCharTok{$}\NormalTok{Nombre\_proyecto, df}\SpecialCharTok{$}\NormalTok{Impacto\_calidad\_vida)}
+
+
+\FunctionTok{prop.table}\NormalTok{(tabla\_calidad\_vida, }\AttributeTok{margin =} \DecValTok{1}\NormalTok{) }\SpecialCharTok{*} \DecValTok{100}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##                          
+##                            Negativo    Neutro  Positivo
+##   Forestal AndesVerde      0.000000 57.894737 42.105263
+##   HidroRío Sur            71.428571 14.285714 14.285714
+##   MegaRelleno Patagonia   41.666667 29.166667 29.166667
+##   Mina Aurora             56.000000 16.000000 28.000000
+##   Proyecto Tierra Fértil  91.666667  4.166667  4.166667
+##   Salmonera Azul Pacífico 58.333333 12.500000 29.166667
+\end{verbatim}
+
+\subsubsection{\texorpdfstring{\textbf{Visualización Impacto en calidad
+de vida por
+proyecto}}{Visualización Impacto en calidad de vida por proyecto}}\label{visualizaciuxf3n-impacto-en-calidad-de-vida-por-proyecto}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{ggplot}\NormalTok{(df, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ Nombre\_proyecto, }\AttributeTok{fill =}\NormalTok{ Impacto\_calidad\_vida)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_bar}\NormalTok{(}\AttributeTok{position =} \StringTok{"fill"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{scale\_y\_continuous}\NormalTok{(}\AttributeTok{labels =}\NormalTok{ scales}\SpecialCharTok{::}\FunctionTok{percent\_format}\NormalTok{()) }\SpecialCharTok{+}
+  \FunctionTok{theme\_minimal}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{title =} \StringTok{"Proporción de Impacto en Calidad de Vida por Proyecto"}\NormalTok{, }
+       \AttributeTok{x =} \StringTok{"Proyecto"}\NormalTok{, }\AttributeTok{y =} \StringTok{"Proporción"}\NormalTok{, }\AttributeTok{fill =} \StringTok{"Impacto en Calidad de Vida"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{theme}\NormalTok{(}\AttributeTok{axis.text.x =} \FunctionTok{element\_text}\NormalTok{(}\AttributeTok{angle =} \DecValTok{45}\NormalTok{, }\AttributeTok{hjust =} \DecValTok{1}\NormalTok{), }
+        \AttributeTok{plot.title =} \FunctionTok{element\_text}\NormalTok{(}\AttributeTok{hjust =} \FloatTok{0.5}\NormalTok{, }\AttributeTok{size =} \DecValTok{14}\NormalTok{, }\AttributeTok{face =} \StringTok{"bold"}\NormalTok{),}
+        \AttributeTok{axis.title =} \FunctionTok{element\_text}\NormalTok{(}\AttributeTok{size =} \DecValTok{12}\NormalTok{),}
+        \AttributeTok{axis.text =} \FunctionTok{element\_text}\NormalTok{(}\AttributeTok{size =} \DecValTok{10}\NormalTok{)) }\SpecialCharTok{+}
+  \FunctionTok{scale\_fill\_brewer}\NormalTok{(}\AttributeTok{palette =} \StringTok{"Set3"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{social_impact_projects_files/figure-latex/unnamed-chunk-22-1.pdf}
+
+\subsection{\texorpdfstring{\textbf{Análisis de Variables de Mitigación
+de
+riesgos}}{Análisis de Variables de Mitigación de riesgos}}\label{anuxe1lisis-de-variables-de-mitigaciuxf3n-de-riesgos}
+
+\subsubsection{\texorpdfstring{\textbf{Cumplimiento de
+compromisos}}{Cumplimiento de compromisos}}\label{cumplimiento-de-compromisos}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DocumentationTok{\#\# Gráfico de barras para la percepción del cumplimiento de compromisos por proyecto}
+\FunctionTok{ggplot}\NormalTok{(df, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ Nombre\_proyecto, }\AttributeTok{fill =}\NormalTok{ Cumplimiento\_compromisos)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_bar}\NormalTok{(}\AttributeTok{position =} \StringTok{"dodge"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{theme\_minimal}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{title =} \StringTok{"Percepción del Cumplimiento de Compromisos por Proyecto"}\NormalTok{,}
+       \AttributeTok{x =} \StringTok{"Proyecto"}\NormalTok{,}
+       \AttributeTok{y =} \StringTok{"Cantidad de Respuestas"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{theme}\NormalTok{(}\AttributeTok{axis.text.x =} \FunctionTok{element\_text}\NormalTok{(}\AttributeTok{angle =} \DecValTok{45}\NormalTok{, }\AttributeTok{hjust =} \DecValTok{1}\NormalTok{)) }\SpecialCharTok{+}
+  \FunctionTok{scale\_fill\_brewer}\NormalTok{(}\AttributeTok{palette =} \StringTok{"Set2"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{geom\_text}\NormalTok{(}\AttributeTok{stat =} \StringTok{\textquotesingle{}count\textquotesingle{}}\NormalTok{, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{label =}\NormalTok{ ..count..), }\AttributeTok{position =} \FunctionTok{position\_dodge}\NormalTok{(}\FloatTok{0.8}\NormalTok{), }\AttributeTok{vjust =} \SpecialCharTok{{-}}\FloatTok{0.5}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning: The dot-dot notation (`..count..`) was deprecated in ggplot2 3.4.0.
+## i Please use `after_stat(count)` instead.
+## This warning is displayed once every 8 hours.
+## Call `lifecycle::last_lifecycle_warnings()` to see where this warning was
+## generated.
+\end{verbatim}
+
+\includegraphics{social_impact_projects_files/figure-latex/unnamed-chunk-23-1.pdf}
+
+\subsubsection{\texorpdfstring{\textbf{Prueba de Hipotesis:} Relación
+entre Proyecto y Cumplimiento de
+compromisos.}{Prueba de Hipotesis: Relación entre Proyecto y Cumplimiento de compromisos.}}\label{prueba-de-hipotesis-relaciuxf3n-entre-proyecto-y-cumplimiento-de-compromisos.}
+
+\paragraph{Hipótesis:}\label{hipuxf3tesis-3}
+
+\subparagraph{H₀: No hay relación entre el cumplimiento de compromisos y
+el nombre del
+proyecto.}\label{hux2080-no-hay-relaciuxf3n-entre-el-cumplimiento-de-compromisos-y-el-nombre-del-proyecto.}
+
+\subparagraph{H₁: Existe una relación entre el cumplimiento de
+compromisos y el nombre del
+proyecto.}\label{hux2081-existe-una-relaciuxf3n-entre-el-cumplimiento-de-compromisos-y-el-nombre-del-proyecto.}
+
+\subsubsection{\texorpdfstring{\textbf{Prueba de
+Chi-cuadrado}}{Prueba de Chi-cuadrado}}\label{prueba-de-chi-cuadrado}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{tabla\_proyecto\_cumplimiento }\OtherTok{\textless{}{-}} \FunctionTok{table}\NormalTok{(df}\SpecialCharTok{$}\NormalTok{Nombre\_proyecto, df}\SpecialCharTok{$}\NormalTok{Cumplimiento\_compromisos)}
+\NormalTok{chi\_result }\OtherTok{\textless{}{-}} \FunctionTok{chisq.test}\NormalTok{(tabla\_proyecto\_cumplimiento)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning in chisq.test(tabla_proyecto_cumplimiento): Chi-squared approximation
+## may be incorrect
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Mostrar el resultado de la prueba de chi{-}cuadrado}
+\FunctionTok{print}\NormalTok{(chi\_result)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+##  Pearson's Chi-squared test
+## 
+## data:  tabla_proyecto_cumplimiento
+## X-squared = 26.37, df = 10, p-value = 0.003274
+\end{verbatim}
+
+\subparagraph{\texorpdfstring{\emph{Dado el bajo p-valor
+(\textless0.05), hay una relación significativa entre el nombre del
+proyecto y el cumplimiento de compromisos. Es recomendable verificar los
+valores esperados y, si es necesario, usar la prueba exacta de Fisher
+para mayor
+precisión.}}{Dado el bajo p-valor (\textless0.05), hay una relación significativa entre el nombre del proyecto y el cumplimiento de compromisos. Es recomendable verificar los valores esperados y, si es necesario, usar la prueba exacta de Fisher para mayor precisión.}}\label{dado-el-bajo-p-valor-0.05-hay-una-relaciuxf3n-significativa-entre-el-nombre-del-proyecto-y-el-cumplimiento-de-compromisos.-es-recomendable-verificar-los-valores-esperados-y-si-es-necesario-usar-la-prueba-exacta-de-fisher-para-mayor-precisiuxf3n.}
+
+\subsubsection{\texorpdfstring{\textbf{Prueba de Monte Carlo}: Para
+corregir advertencia del test
+Chi-cuadrado}{Prueba de Monte Carlo: Para corregir advertencia del test Chi-cuadrado}}\label{prueba-de-monte-carlo-para-corregir-advertencia-del-test-chi-cuadrado}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{fisher\_result }\OtherTok{\textless{}{-}} \FunctionTok{fisher.test}\NormalTok{(tabla\_proyecto\_cumplimiento, }\AttributeTok{simulate.p.value =} \ConstantTok{TRUE}\NormalTok{, }\AttributeTok{B =} \DecValTok{10000}\NormalTok{)  }\CommentTok{\# 10,000 simulaciones}
+\FunctionTok{print}\NormalTok{(fisher\_result)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+##  Fisher's Exact Test for Count Data with simulated p-value (based on
+##  10000 replicates)
+## 
+## data:  tabla_proyecto_cumplimiento
+## p-value = 0.0008999
+## alternative hypothesis: two.sided
+\end{verbatim}
+
+\subparagraph{\texorpdfstring{\emph{Como el p-valor (0.002) \textless{}
+0.05, rechazamos la hipótesis nula (H₀) y concluimos que hay una
+relación estadísticamente significativa entre el nombre del proyecto y
+el cumplimiento de compromisos. Es decir, el grado de cumplimiento de
+compromisos varía según el
+proyecto.}}{Como el p-valor (0.002) \textless{} 0.05, rechazamos la hipótesis nula (H₀) y concluimos que hay una relación estadísticamente significativa entre el nombre del proyecto y el cumplimiento de compromisos. Es decir, el grado de cumplimiento de compromisos varía según el proyecto.}}\label{como-el-p-valor-0.002-0.05-rechazamos-la-hipuxf3tesis-nula-hux2080-y-concluimos-que-hay-una-relaciuxf3n-estaduxedsticamente-significativa-entre-el-nombre-del-proyecto-y-el-cumplimiento-de-compromisos.-es-decir-el-grado-de-cumplimiento-de-compromisos-varuxeda-seguxfan-el-proyecto.}
+
+\subsubsection{\texorpdfstring{\textbf{Satisfacción con la
+Mitigación}}{Satisfacción con la Mitigación}}\label{satisfacciuxf3n-con-la-mitigaciuxf3n}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{ggplot}\NormalTok{(df, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ Nombre\_proyecto, }\AttributeTok{y =}\NormalTok{ Satisfacción\_mitigación, }\AttributeTok{fill =}\NormalTok{ Nombre\_proyecto)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_boxplot}\NormalTok{(}\AttributeTok{alpha =} \FloatTok{0.7}\NormalTok{, }\AttributeTok{outlier.colour =} \StringTok{"red"}\NormalTok{, }\AttributeTok{outlier.shape =} \DecValTok{16}\NormalTok{, }\AttributeTok{outlier.size =} \DecValTok{3}\NormalTok{) }\SpecialCharTok{+} 
+  \FunctionTok{theme\_minimal}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{title =} \StringTok{"Distribución de la Satisfacción con las Acciones de Mitigación por Proyecto"}\NormalTok{,}
+       \AttributeTok{x =} \StringTok{"Proyecto"}\NormalTok{,}
+       \AttributeTok{y =} \StringTok{"Satisfacción con la Mitigación"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{theme}\NormalTok{(}\AttributeTok{axis.text.x =} \FunctionTok{element\_text}\NormalTok{(}\AttributeTok{angle =} \DecValTok{45}\NormalTok{, }\AttributeTok{hjust =} \DecValTok{1}\NormalTok{)) }\SpecialCharTok{+} 
+  \FunctionTok{scale\_fill\_brewer}\NormalTok{(}\AttributeTok{palette =} \StringTok{"Set3"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{social_impact_projects_files/figure-latex/unnamed-chunk-26-1.pdf}
+
+\subsubsection{\texorpdfstring{\textbf{Prueba de Hipótesis:}ANOVA para
+comparar satisfacción con mitigación de
+Proyectos}{Prueba de Hipótesis:ANOVA para comparar satisfacción con mitigación de Proyectos}}\label{prueba-de-hipuxf3tesisanova-para-comparar-satisfacciuxf3n-con-mitigaciuxf3n-de-proyectos}
+
+\paragraph{Hipótesis:}\label{hipuxf3tesis-4}
+
+\subparagraph{H₀: La satisfacción con la mitigación no varía
+significativamente entre los
+proyectos.}\label{hux2080-la-satisfacciuxf3n-con-la-mitigaciuxf3n-no-varuxeda-significativamente-entre-los-proyectos.}
+
+\subparagraph{H₁: La satisfacción con la mitigación varía
+significativamente entre los
+proyectos.}\label{hux2081-la-satisfacciuxf3n-con-la-mitigaciuxf3n-varuxeda-significativamente-entre-los-proyectos.}
+
+\subsection{\texorpdfstring{\textbf{Prueba
+ANOVA}}{Prueba ANOVA}}\label{prueba-anova}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{anova\_satisfaccion }\OtherTok{\textless{}{-}} \FunctionTok{aov}\NormalTok{(Satisfacción\_mitigación }\SpecialCharTok{\textasciitilde{}}\NormalTok{ Nombre\_proyecto, }\AttributeTok{data =}\NormalTok{ df)}
+\FunctionTok{summary}\NormalTok{(anova\_satisfaccion)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##                  Df Sum Sq Mean Sq F value Pr(>F)
+## Nombre_proyecto   5   2.34  0.4671   0.276  0.926
+## Residuals       131 221.94  1.6942
+\end{verbatim}
+
+\subparagraph{\texorpdfstring{\emph{No hay diferencias estadísticamente
+significativas en la satisfacción con la mitigación entre los proyectos.
+La variación observada en la satisfacción parece deberse al azar y no a
+diferencias reales entre los
+proyectos.}}{No hay diferencias estadísticamente significativas en la satisfacción con la mitigación entre los proyectos. La variación observada en la satisfacción parece deberse al azar y no a diferencias reales entre los proyectos.}}\label{no-hay-diferencias-estaduxedsticamente-significativas-en-la-satisfacciuxf3n-con-la-mitigaciuxf3n-entre-los-proyectos.-la-variaciuxf3n-observada-en-la-satisfacciuxf3n-parece-deberse-al-azar-y-no-a-diferencias-reales-entre-los-proyectos.}
+
+\subsection{\texorpdfstring{\textbf{Verificar los supuestos del ANOVA:}
+de homogeneidad de
+varianzas}{Verificar los supuestos del ANOVA: de homogeneidad de varianzas}}\label{verificar-los-supuestos-del-anova-de-homogeneidad-de-varianzas}
+
+\paragraph{Hipótesis:}\label{hipuxf3tesis-5}
+
+\subparagraph{H₀: Las varianzas son homogéneas entre los
+grupos.}\label{hux2080-las-varianzas-son-homoguxe9neas-entre-los-grupos.}
+
+\subparagraph{H₁: Las varianzas no son homogéneas entre los
+grupos.}\label{hux2081-las-varianzas-no-son-homoguxe9neas-entre-los-grupos.}
+
+\subsubsection{\texorpdfstring{\textbf{Prueba de
+Levene}}{Prueba de Levene}}\label{prueba-de-levene}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#Prueba de Levene}
+\FunctionTok{leveneTest}\NormalTok{(Satisfacción\_mitigación }\SpecialCharTok{\textasciitilde{}}\NormalTok{ Nombre\_proyecto, }\AttributeTok{data =}\NormalTok{ df)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning in leveneTest.default(y = y, group = group, ...): group coerced to
+## factor.
+\end{verbatim}
+
+\begin{verbatim}
+## Levene's Test for Homogeneity of Variance (center = median)
+##        Df F value Pr(>F)
+## group   5  0.2983 0.9131
+##       131
+\end{verbatim}
+
+\subparagraph{\texorpdfstring{\emph{No hay evidencia suficiente para
+afirmar que las varianzas sean diferentes entre los grupos. Por lo
+tanto, se cumple el supuesto de homogeneidad de
+varianzas.}}{No hay evidencia suficiente para afirmar que las varianzas sean diferentes entre los grupos. Por lo tanto, se cumple el supuesto de homogeneidad de varianzas.}}\label{no-hay-evidencia-suficiente-para-afirmar-que-las-varianzas-sean-diferentes-entre-los-grupos.-por-lo-tanto-se-cumple-el-supuesto-de-homogeneidad-de-varianzas.}
+
+\subsection{\texorpdfstring{\textbf{Prueba de
+normalidad:}}{Prueba de normalidad:}}\label{prueba-de-normalidad}
+
+\subparagraph{Hipótesis:}\label{hipuxf3tesis-6}
+
+\subparagraph{H₀: Los residuos siguen una distribución
+normal.}\label{hux2080-los-residuos-siguen-una-distribuciuxf3n-normal.}
+
+\subparagraph{H₁: Los residuos no siguen una distribución
+normal.}\label{hux2081-los-residuos-no-siguen-una-distribuciuxf3n-normal.}
+
+\subsubsection{\texorpdfstring{\textbf{Test de
+Shapiro-Wilk}}{Test de Shapiro-Wilk}}\label{test-de-shapiro-wilk}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{shapiro.test}\NormalTok{(}\FunctionTok{residuals}\NormalTok{(anova\_satisfaccion))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+##  Shapiro-Wilk normality test
+## 
+## data:  residuals(anova_satisfaccion)
+## W = 0.94259, p-value = 1.977e-05
+\end{verbatim}
+
+\subparagraph{\texorpdfstring{\emph{Se rechaza Hipótesis Nula: No hay
+evidencia suficiente para concluir que los residuos no siguen una
+distribución
+normal}}{Se rechaza Hipótesis Nula: No hay evidencia suficiente para concluir que los residuos no siguen una distribución normal}}\label{se-rechaza-hipuxf3tesis-nula-no-hay-evidencia-suficiente-para-concluir-que-los-residuos-no-siguen-una-distribuciuxf3n-normal}
+
+\subsubsection{\texorpdfstring{\textbf{Prueba no paramétrica
+Kruskal-Wallis}}{Prueba no paramétrica Kruskal-Wallis}}\label{prueba-no-paramuxe9trica-kruskal-wallis}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{kruskal.test}\NormalTok{(Satisfacción\_mitigación }\SpecialCharTok{\textasciitilde{}}\NormalTok{ Nombre\_proyecto, }\AttributeTok{data =}\NormalTok{ df)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+##  Kruskal-Wallis rank sum test
+## 
+## data:  Satisfacción_mitigación by Nombre_proyecto
+## Kruskal-Wallis chi-squared = 1.4611, df = 5, p-value = 0.9175
+\end{verbatim}
+
+\subparagraph{\texorpdfstring{\emph{Tanto el ANOVA como la prueba de
+Kruskal-Wallis indican que no hay diferencias significativas en la
+satisfacción con la mitigación entre los proyectos.Esto sugiere que, en
+promedio, los proyectos tienen niveles de satisfacción similares en
+cuanto a la mitigación, y no sería necesario realizar intervenciones
+específicas para cada proyecto en este
+aspecto.}}{Tanto el ANOVA como la prueba de Kruskal-Wallis indican que no hay diferencias significativas en la satisfacción con la mitigación entre los proyectos.Esto sugiere que, en promedio, los proyectos tienen niveles de satisfacción similares en cuanto a la mitigación, y no sería necesario realizar intervenciones específicas para cada proyecto en este aspecto.}}\label{tanto-el-anova-como-la-prueba-de-kruskal-wallis-indican-que-no-hay-diferencias-significativas-en-la-satisfacciuxf3n-con-la-mitigaciuxf3n-entre-los-proyectos.esto-sugiere-que-en-promedio-los-proyectos-tienen-niveles-de-satisfacciuxf3n-similares-en-cuanto-a-la-mitigaciuxf3n-y-no-seruxeda-necesario-realizar-intervenciones-especuxedficas-para-cada-proyecto-en-este-aspecto.}
+
+\subsection{\texorpdfstring{\textbf{Prueba de Hipótesis:} ANOVA para
+comparar satisfacción con la mitigación según el cumplimiento de
+compromisos.}{Prueba de Hipótesis: ANOVA para comparar satisfacción con la mitigación según el cumplimiento de compromisos.}}\label{prueba-de-hipuxf3tesis-anova-para-comparar-satisfacciuxf3n-con-la-mitigaciuxf3n-seguxfan-el-cumplimiento-de-compromisos.}
+
+\paragraph{Hipótesis:}\label{hipuxf3tesis-7}
+
+\subparagraph{H₀: La satisfacción con la mitigación no varía
+significativamente según el cumplimiento de
+compromisos.}\label{hux2080-la-satisfacciuxf3n-con-la-mitigaciuxf3n-no-varuxeda-significativamente-seguxfan-el-cumplimiento-de-compromisos.}
+
+\subparagraph{H₁: La satisfacción con la mitigación varía
+significativamente según el cumplimiento de
+compromisos.}\label{hux2081-la-satisfacciuxf3n-con-la-mitigaciuxf3n-varuxeda-significativamente-seguxfan-el-cumplimiento-de-compromisos.}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{anova\_mitigacion }\OtherTok{\textless{}{-}} \FunctionTok{aov}\NormalTok{(Satisfacción\_mitigación }\SpecialCharTok{\textasciitilde{}}\NormalTok{ Cumplimiento\_compromisos, }\AttributeTok{data =}\NormalTok{ df)}
+\FunctionTok{summary}\NormalTok{(anova\_mitigacion)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##                           Df Sum Sq Mean Sq F value Pr(>F)
+## Cumplimiento_compromisos   2   1.74  0.8693   0.523  0.594
+## Residuals                134 222.54  1.6607
+\end{verbatim}
+
+\subparagraph{\texorpdfstring{\emph{Se acepta la Hipótesis Nula: El
+cumplimiento de compromisos no es un factor determinante en la
+satisfacción con la
+mitigación.}}{Se acepta la Hipótesis Nula: El cumplimiento de compromisos no es un factor determinante en la satisfacción con la mitigación.}}\label{se-acepta-la-hipuxf3tesis-nula-el-cumplimiento-de-compromisos-no-es-un-factor-determinante-en-la-satisfacciuxf3n-con-la-mitigaciuxf3n.}
+
+\subsection{\texorpdfstring{\textbf{Análisis homogeneidad de
+varianzas:}}{Análisis homogeneidad de varianzas:}}\label{anuxe1lisis-homogeneidad-de-varianzas}
+
+\subsection{\texorpdfstring{\textbf{Prueba de
+Levene}}{Prueba de Levene}}\label{prueba-de-levene-1}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{leveneTest}\NormalTok{(Satisfacción\_mitigación }\SpecialCharTok{\textasciitilde{}}\NormalTok{ Cumplimiento\_compromisos, }\AttributeTok{data =}\NormalTok{ df)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning in leveneTest.default(y = y, group = group, ...): group coerced to
+## factor.
+\end{verbatim}
+
+\begin{verbatim}
+## Levene's Test for Homogeneity of Variance (center = median)
+##        Df F value Pr(>F)
+## group   2  0.4338 0.6489
+##       134
+\end{verbatim}
+
+\subparagraph{\texorpdfstring{\emph{Se cumple el supuesto de
+homogeneidad de
+varianzas}}{Se cumple el supuesto de homogeneidad de varianzas}}\label{se-cumple-el-supuesto-de-homogeneidad-de-varianzas}
+
+\subsection{\texorpdfstring{\textbf{Análisis de densidad de valores
+dentro de cada categoría de
+cumplimiento}}{Análisis de densidad de valores dentro de cada categoría de cumplimiento}}\label{anuxe1lisis-de-densidad-de-valores-dentro-de-cada-categoruxeda-de-cumplimiento}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#Gráfico de violín}
+\FunctionTok{ggplot}\NormalTok{(df, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ Cumplimiento\_compromisos, }\AttributeTok{y =}\NormalTok{ Satisfacción\_mitigación, }\AttributeTok{fill =}\NormalTok{ Cumplimiento\_compromisos)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_violin}\NormalTok{(}\AttributeTok{alpha =} \FloatTok{0.6}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{geom\_jitter}\NormalTok{(}\AttributeTok{color =} \StringTok{"black"}\NormalTok{, }\AttributeTok{width =} \FloatTok{0.2}\NormalTok{, }\AttributeTok{alpha =} \FloatTok{0.5}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{theme\_minimal}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{title =} \StringTok{"Distribución de la Satisfacción con la Mitigación según Cumplimiento de Compromisos"}\NormalTok{,}
+       \AttributeTok{x =} \StringTok{"Cumplimiento de Compromisos"}\NormalTok{,}
+       \AttributeTok{y =} \StringTok{"Satisfacción con la Mitigación"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{scale\_fill\_brewer}\NormalTok{(}\AttributeTok{palette =} \StringTok{"Pastel1"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{social_impact_projects_files/figure-latex/unnamed-chunk-33-1.pdf}
+
+\subparagraph{\texorpdfstring{\emph{Existe una alta variabilidad en la
+satisfacción, particularmente en quienes manifiestan un bajo
+cumplimiento de
+compromisos}}{Existe una alta variabilidad en la satisfacción, particularmente en quienes manifiestan un bajo cumplimiento de compromisos}}\label{existe-una-alta-variabilidad-en-la-satisfacciuxf3n-particularmente-en-quienes-manifiestan-un-bajo-cumplimiento-de-compromisos}
+
+\section{\texorpdfstring{\textbf{Conclusiones:}}{Conclusiones:}}\label{conclusiones}
+
+\end{document}

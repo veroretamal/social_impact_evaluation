@@ -1,0 +1,336 @@
+---
+title: "social_impact"
+author: "VCRA"
+date: "2025-03-04"
+output: html_document
+---
+
+# Evaluación de impacto social 
+
+Este ejercicio tiene como objetivo: Realizar un análisis de impacto social de proyectos sobre comunidades ubicadas en Chile.
+
+Para ello se determinan tres niveles de análisis:
+1- Linea Base Social
+2- Variables de Impacto
+3- Variables de Mitigación de Riesgos
+
+y se busca 
+
+- Conocer las características sociales de la población afectada por los proyectos estudiados.
+- Determinar la relacion entre las variables de linea base social y la opinión sobre el Proyecto.
+- Establecer relaciones entre variables que impacten sobre la opinión del Proyecto
+- Conocer las variables de impacto en relación con cada Proyecto
+- Conocer las variables de mitigación de riesgos en cada Proyecto
+
+## Instalación de paquetes
+```{r}
+# Instalación de paquetes y liberías
+install.packages("tidyverse")
+install.packages("lubridate")
+install.packages("ggplot2")
+install.packages("corrplot")
+install.packages("dplyr")       
+install.packages("summarytools") 
+install.packages("psych")
+install.packages("wordcloud")
+install.packages("pscl")
+install.packages("pROC")
+library(tidyverse)
+library(lubridate)
+library(ggplot2)
+library(readr)
+library(dplyr)
+library(summarytools)
+library(car)
+library(tidyr)
+library(readxl)
+library(broom)
+library(psych)
+library(wordcloud)
+library(RColorBrewer)
+library(pscl)
+library(pROC)
+```
+
+```{r}
+# Cargar archivo XLS
+df <- read_excel("EIS/eis.xlsx")
+```
+Se cargaron los datos
+
+
+```{r}
+## Revisar data frame
+colnames(df)
+glimpse(df)
+
+```
+
+# Exploración y limpieza de datos
+```{r}
+## Resumen estadistico general
+dfSummary(df)
+```
+
+```{r}
+## Verificar valores nulos
+colSums(is.na(df))
+
+## Eliminación de valores nulos si es necesario
+df <- df %>% drop_na()  # Eliminar filas con valores NA 
+
+```
+
+## Análisis descriptivo linea base social
+
+## Resumen estadístico de la población general regiones donde se inserta el proyecto
+```{r}
+descriptivos <- df %>%
+  select(Población_total_region, Pob_indígena, Porcentaje_rural, Tasa_desempleo, Num_actores_clave, Participación_ciudadana, Conocimiento_proyecto, Confianza_responsables, Organización_comunitaria) %>%
+  describe()
+  
+print(descriptivos)    
+
+```
+
+El análisis de la línea base social revela una gran variabilidad entre las regiones. La población total por región varía significativamente, con un promedio de 1.37 millones de habitantes, pero algunas regiones alcanzan hasta 7.5 millones. El porcentaje rural tiene un promedio de 25%, mostrando diferencias en la distribución rural de cada región. La tasa de desempleo promedio es del 8%, con una ligera concentración en tasas bajas.
+
+Respecto a la participación en los proyectos, el conocimiento sobre los proyectos y la confianza en los responsables tienen promedios moderados de 3, indicando un nivel intermedio de familiaridad y confianza. La organización comunitaria tiene un valor promedio bajo de 2.04, sugiriendo una participación limitada en las actividades comunitarias. Estos resultados reflejan una gran diversidad social y económica entre las regiones, lo que debe ser considerado al diseñar e implementar proyectos.
+
+# Distribución de la población total por región
+```{r}
+ggplot(df, aes(x = Región, y = Población_total_region)) +
+  geom_boxplot(fill = "skyblue") +
+  theme_minimal() +
+  labs(title = "Distribución de la Población Total por Región", y = "Población Total", x = "Región")
+```
+
+
+# Boxplot de Tasa de Desempleo por Región
+```{r}
+ggplot(df, aes(x = Región, y = Tasa_desempleo, fill = Región)) +
+  geom_boxplot() +
+  theme_minimal() +
+  labs(title = "Distribución de la Tasa de Desempleo por Región",
+       x = "Región", y = "Tasa de Desempleo (%)") +
+  theme(legend.position = "none")
+```
+
+
+# Gráfico de barras de la población indígena por región
+```{r}
+ggplot(df, aes(x = Región, y = Pob_indígena, fill = Región)) +
+  geom_bar(stat = "identity") +
+  theme_minimal() +
+  labs(title = "Población Indígena por Región", x = "Región", y = "Población Indígena") +
+  theme(legend.position = "none")
+
+```
+
+
+# Gráfico de dispersión entre Tasa de Desempleo y Porcentaje Rural
+```{r}
+ggplot(df, aes(x = Porcentaje_rural, y = Tasa_desempleo, color = Región)) +
+  geom_point(size = 3, alpha = 0.7) +
+  geom_smooth(method = "lm", se = FALSE, color = "black") +
+  theme_minimal() +
+  labs(title = "Relación entre Tasa de Desempleo y Porcentaje Rural",
+       x = "Porcentaje Rural (%)", y = "Tasa de Desempleo (%)")
+
+```
+
+# Número de actores clave por proyecto
+```{r}
+ggplot(df, aes(x = Nombre_proyecto, y = Num_actores_clave, fill = Nombre_proyecto)) +
+  geom_boxplot(alpha = 0.7) +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
+  labs(title = "Número de Actores Clave por Proyecto", x = "Proyecto", y = "Número de Actores Clave")
+
+```
+
+
+
+# Descriptivo opinión población general
+
+# Proyectos por sector
+```{r}
+
+ggplot(df, aes(x = Nombre_proyecto, fill = Sector)) +
+  geom_bar() +
+  theme_minimal() +
+  labs(title = "Frecuencia de Proyectos por Sector", x = "Proyecto", y = "Cantidad") +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+```
+
+## Opinión sobre Proyectos por Región
+```{r}
+ggplot(df, aes(x = Región, fill = Opinion_proyecto)) +
+  geom_bar() +
+  theme_minimal() +
+  labs(title = "Opinión sobre Proyectos por Región", x = "Región", y = "Cantidad") +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+```
+
+## Confianza en Instituciones por Región
+```{r}
+ggplot(df, aes(x = Confianza_instituciones, fill = Región)) +
+  geom_bar() +
+  theme_minimal() +
+  labs(title = "Confianza en Instituciones por Región", x = "Nivel de Confianza", y = "Cantidad")
+```
+
+
+# Análisis de asociación sector/opinión del proyecto
+```{r}
+# Distribución de opinión por sector
+ggplot(df, aes(x = Sector, fill = Opinion_proyecto)) +
+  geom_bar(position = "fill") + 
+  theme_minimal() +
+  labs(title = "Distribución de Opinión por Sector", x = "Sector", y = "Proporción")
+
+
+```
+
+# Analisis relacion entre Tasa de desempleo y Opinion sobre el Proyecto
+```{r}
+# Gráfico de caja para ver la distribución de la tasa de desempleo según la opinión
+ggplot(df, aes(x = Opinion_proyecto, y = Tasa_desempleo, fill = Opinion_proyecto)) +
+  geom_boxplot(alpha = 0.7) +
+  theme_minimal() +
+  labs(title = "Tasa de Desempleo según Opinión del Proyecto", x = "Opinión del Proyecto", y = "Tasa de Desempleo") +
+  theme(legend.position = "none") 
+
+```
+
+
+
+# Análisis de influencia entre la Confianza en Instituciones y Opinión sobre el Proyecto
+```{r}
+ggplot(df, aes(x = Opinion_proyecto, y = Confianza_instituciones)) +
+  geom_boxplot(fill = "lightblue", color = "black") +
+  theme_minimal() +
+  labs(title = "Confianza en Instituciones según Opinión del Proyecto",
+       x = "Opinión sobre el Proyecto", 
+       y = "Confianza en Instituciones")
+
+```
+
+
+# Confianza en los responsables por Proyecto
+```{r}
+ggplot(df, aes(x = Nombre_proyecto, y = Confianza_responsables, fill = Nombre_proyecto)) +
+  geom_boxplot(alpha = 0.7) +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
+  labs(title = "Confianza en Responsables por Proyecto", x = "Proyecto", y = "Confianza en Responsables")
+```
+
+# Organización Comunitaria por Proyecto
+```{r}
+ggplot(df, aes(x = Nombre_proyecto, fill = factor(Organización_comunitaria))) +
+  geom_bar(position = "dodge") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
+  labs(title = "Organización Comunitaria por Proyecto", x = "Proyecto", y = "Frecuencia", fill = "Organización Comunitaria")
+```
+
+
+# Relación entre Conocimiento del Proyecto y Nombre del Proyecto
+```{r}
+ggplot(df, aes(x = Nombre_proyecto, y = Conocimiento_proyecto, fill = Nombre_proyecto)) +
+  geom_violin(alpha = 0.6) +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
+  labs(title = "Conocimiento del Proyecto por Nombre de Proyecto", x = "Proyecto", y = "Conocimiento del Proyecto")
+```
+
+
+# Análisis variables numéricas por Proyecto
+```{r}
+df_long_num <- df %>% 
+  pivot_longer(cols = c(Num_actores_clave, Participación_ciudadana, 
+                        Conocimiento_proyecto, Confianza_responsables), 
+               names_to = "Variable", values_to = "Valor")
+
+ggplot(df_long_num, aes(x = Nombre_proyecto, y = Valor, fill = Nombre_proyecto)) +
+  geom_boxplot(alpha = 0.7) +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
+  facet_wrap(~Variable, scales = "free") +
+  labs(title = "Distribución de Variables Numéricas por Proyecto", x = "Proyecto", y = "Valor")
+```
+
+
+
+# Variables categoricas por proeycto
+```{r}
+df_long_cat <- df %>% 
+  pivot_longer(cols = c(Organización_comunitaria), 
+               names_to = "Variable", values_to = "Categoría")
+
+ggplot(df_long_cat, aes(x = Nombre_proyecto, fill = Categoría)) +
+  geom_bar(position = "dodge") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
+  facet_wrap(~Variable, scales = "free") +
+  labs(title = "Distribución de Variables Categóricas por Proyecto", x = "Proyecto", y = "Frecuencia", fill = "Categoría")
+```
+
+
+# Analisis de variables de impacto
+#Descriptivos
+```{r}
+# Convertimos las variables a formato largo
+df_long_cat <- df %>%
+  pivot_longer(cols = c(Riesgo_desplazamiento, Impacto_cohesión_social, 
+                        Cambio_empleo_local, Impacto_seguridad_servicios, 
+                        Conflictos_potenciales), 
+               names_to = "Variable", values_to = "Categoría")
+```
+
+
+# Gráfico de barras para variables categóricas
+```{r}
+ggplot(df_long_cat, aes(x = Categoría, fill = Categoría)) +
+  geom_bar() +
+  facet_wrap(~Variable, scales = "free_x") +
+  theme_minimal() +
+  labs(title = "Distribución de Variables de Impacto", x = "Categoría", y = "Frecuencia") +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+```
+
+
+
+
+# Relación entre Impactos por Proyecto
+```{r}
+df_long <- df %>%
+  pivot_longer(cols = c(Riesgo_desplazamiento, Impacto_cohesión_social, 
+                        Cambio_empleo_local, Impacto_seguridad_servicios, 
+                        Conflictos_potenciales), 
+               names_to = "Impacto", values_to = "Categoría")
+
+ggplot(df_long, aes(x = Nombre_proyecto, fill = Categoría)) +
+  geom_bar(position = "dodge") +
+  facet_wrap(~Impacto, scales = "free") +
+  theme_minimal() +
+  labs(title = "Impacto por Proyecto", x = "Proyecto", y = "Frecuencia", fill = "Impacto") +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+```
+
+
+
+# Percepcion ambiental por proyecto
+```{r}
+
+ggplot(df, aes(x = Nombre_proyecto, y = Percepción_ambiental, fill = Nombre_proyecto)) +
+  geom_boxplot() +
+  theme_minimal() +
+  labs(title = "Percepción Ambiental por Proyecto", x = "Proyecto", y = "Percepción Ambiental") +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+
+```
+
+
+

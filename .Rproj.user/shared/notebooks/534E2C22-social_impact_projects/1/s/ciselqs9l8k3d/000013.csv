@@ -1,0 +1,6 @@
+"0",""
+"0","ggplot(df, aes(x = Opinion_proyecto, y = Confianza_instituciones)) +"
+"0","  geom_boxplot(fill = ""lightblue"", color = ""black"") +"
+"0","  theme_minimal() +"
+"0","  labs(title = ""Confianza en Instituciones según Opinión del Proyecto"", "
+"0","       x = ""Opinión sobre el Proyecto"", y = ""Confianza en Instituciones"")"

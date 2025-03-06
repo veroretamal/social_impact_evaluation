@@ -1,0 +1,6 @@
+"0","## Relación entre Conocimiento del Proyecto y el Proyecto"
+"0","ggplot(df, aes(x = Nombre_proyecto, y = Conocimiento_proyecto, fill = Nombre_proyecto)) +"
+"0","  geom_violin(alpha = 0.6) +"
+"0","  theme_minimal() +"
+"0","  theme(axis.text.x = element_text(angle = 45, hjust = 1)) +"
+"0","  labs(title = ""Conocimiento del Proyecto"", x = ""Proyecto"", y = ""Conocimiento del Proyecto"")"

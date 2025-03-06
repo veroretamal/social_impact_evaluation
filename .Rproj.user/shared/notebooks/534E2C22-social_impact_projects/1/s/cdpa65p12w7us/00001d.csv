@@ -1,0 +1,5 @@
+"0","ggplot(df, aes(x = fct_infreq(Opinion_proyecto), fill = Nombre_proyecto)) +  # Agrupar las opiniones"
+"0","  geom_bar(position = ""dodge"") +  # Mejor visualización con barras separadas"
+"0","  theme_minimal() +"
+"0","  labs(title = ""Opinión sobre Proyectos por Proyecto"", x = ""Opinión del Proyecto"", y = ""Cantidad"") +"
+"0","  theme(axis.text.x = element_text(angle = 45, hjust = 1))"

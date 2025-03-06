@@ -1,0 +1,6 @@
+"0","ggplot(df, aes(x = factor(Conocimiento_proyecto), y = Opinion_proyecto_num, fill = factor(Conocimiento_proyecto))) +"
+"0","  geom_boxplot(alpha = 0.7) +"
+"0","  theme_minimal() +"
+"0","  labs(title = ""Opinión del Proyecto según Conocimiento del Proyecto"", x = ""Conocimiento del Proyecto"", "
+"0","       y = ""Opinión del Proyecto (Numérica)"", fill = ""Conocimiento"") +"
+"0","  theme(legend.position = ""none"")"

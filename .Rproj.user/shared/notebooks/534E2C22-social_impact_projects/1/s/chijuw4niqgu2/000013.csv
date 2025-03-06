@@ -1,0 +1,8 @@
+"0","ggplot(df, aes(x = Nombre_proyecto, y = Satisfacción_mitigación, fill = Nombre_proyecto)) +"
+"0","  geom_boxplot(alpha = 0.7, outlier.colour = ""red"", outlier.shape = 16, outlier.size = 3) + "
+"0","  theme_minimal() +"
+"0","  labs(title = ""Distribución de la Satisfacción con las Acciones de Mitigación por Proyecto"","
+"0","       x = ""Proyecto"","
+"0","       y = ""Satisfacción con la Mitigación"") +"
+"0","  theme(axis.text.x = element_text(angle = 45, hjust = 1)) + "
+"0","  scale_fill_brewer(palette = ""Set3"")"

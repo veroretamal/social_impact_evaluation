@@ -1,0 +1,16 @@
+"0","## Gráfico de barras para la percepción del cumplimiento de compromisos por proyecto"
+"0","ggplot(df, aes(x = Nombre_proyecto, fill = Cumplimiento_compromisos)) +"
+"0","  geom_bar(position = ""dodge"") +"
+"0","  theme_minimal() +"
+"0","  labs(title = ""Percepción del Cumplimiento de Compromisos por Proyecto"","
+"0","       x = ""Proyecto"","
+"0","       y = ""Cantidad de Respuestas"") +"
+"0","  theme(axis.text.x = element_text(angle = 45, hjust = 1)) +"
+"0","  scale_fill_brewer(palette = ""Set2"") +"
+"0","  geom_text(stat = 'count', aes(label = ..count..), position = position_dodge(0.8), vjust = -0.5)"
+"2","Warning:"
+"2"," [38;5;232mThe dot-dot notation (`..count..`) was deprecated in ggplot2 3.4.0.
+[36mℹ[38;5;232m Please use `after_stat(count)` instead.
+[90mThis warning is displayed once every 8 hours.[38;5;232m
+[90mCall `lifecycle::last_lifecycle_warnings()` to see where this warning was generated.[38;5;232m[39m
+"

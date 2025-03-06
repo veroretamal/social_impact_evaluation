@@ -1,0 +1,5 @@
+"0","# Cargar archivo XLS"
+"0","df <- read_excel(""EIS/eis.xlsx"")"
+"0",""
+"0","# Ver las primeras lineas del dataset"
+"0","head(df)"
